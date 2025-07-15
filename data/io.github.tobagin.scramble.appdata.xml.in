@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop">
+  <id>io.github.tobagin.scramble</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Scramble</name>
+  <summary>Privacy-focused image metadata removal tool</summary>
+  <description>
+    <p>
+      Scramble is a simple, privacy-focused utility for viewing and removing 
+      metadata from images. The application provides a clean, intuitive interface 
+      featuring a user-friendly drag-and-drop workflow for metadata inspection 
+      and removal.
+    </p>
+    <p>
+      Key features:
+    </p>
+    <ul>
+      <li>View detailed image metadata (EXIF, IPTC, XMP)</li>
+      <li>One-click metadata removal</li>
+      <li>Drag-and-drop image loading</li>
+      <li>Non-destructive workflow - originals are never modified</li>
+      <li>Offline operation - no data collection</li>
+      <li>Support for JPEG and TIFF formats</li>
+    </ul>
+  </description>
+  
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main window showing metadata inspection</caption>
+    </screenshot>
+  </screenshots>
+  
+  <url type="homepage">https://github.com/tobagin/scramble</url>
+  <url type="bugtracker">https://github.com/tobagin/scramble/issues</url>
+  
+  <developer id="io.github.tobagin">
+    <name>Tobagin</name>
+  </developer>
+  
+  <provides>
+    <binary>scramble</binary>
+  </provides>
+  
+  <releases>
+    <release version="1.0.0" date="2025-07-15">
+      <description>
+        <p>Initial release of Scramble</p>
+        <ul>
+          <li>Metadata viewing and removal for JPEG and TIFF images</li>
+          <li>Drag-and-drop interface</li>
+          <li>Privacy-focused design</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  
+  <content_rating type="oars-1.1"/>
+  
+  <categories>
+    <category>Graphics</category>
+    <category>Photography</category>
+    <category>Utility</category>
+  </categories>
+  
+  <keywords>
+    <keyword>metadata</keyword>
+    <keyword>exif</keyword>
+    <keyword>privacy</keyword>
+    <keyword>image</keyword>
+    <keyword>photo</keyword>
+  </keywords>
+</component>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gresources>
+  <gresource prefix="/io/github/tobagin/scramble">
+    <file compressed="true">ui/window.ui</file>
+    <file compressed="true">ui/metadata_row.ui</file>
+    <file compressed="true">ui/preferences_dialog.ui</file>
+  </gresource>
+</gresources>

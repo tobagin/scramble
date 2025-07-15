@@ -1,0 +1,56 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $PreferencesDialog : Adw.PreferencesDialog {
+  title: _("Preferences");
+  
+  Adw.PreferencesPage {
+    title: _("General");
+    icon-name: "preferences-system-symbolic";
+    
+    Adw.PreferencesGroup {
+      title: _("Image Processing");
+      description: _("Configure how images are processed");
+      
+      Adw.ActionRow {
+        title: _("Image Quality");
+        subtitle: _("Quality level for saved images");
+        
+        [suffix]
+        Gtk.SpinButton quality_spin {
+          adjustment: Gtk.Adjustment {
+            lower: 1;
+            upper: 100;
+            step-increment: 1;
+            page-increment: 10;
+            value: 95;
+          };
+          
+          valign: center;
+        }
+      }
+      
+      Adw.SwitchRow preserve_timestamps {
+        title: _("Preserve File Timestamps");
+        subtitle: _("Keep original file creation and modification times");
+        active: true;
+      }
+    }
+    
+    Adw.PreferencesGroup {
+      title: _("Privacy");
+      description: _("Privacy and security settings");
+      
+      Adw.ActionRow {
+        title: _("Secure Memory");
+        subtitle: _("Clear image data from memory after processing");
+        
+        [suffix]
+        Gtk.Switch secure_memory_switch {
+          active: true;
+          valign: center;
+        }
+      }
+    }
+  }
+}

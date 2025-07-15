@@ -1,0 +1,98 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ScrambleWindow : Adw.ApplicationWindow {
+  title: _("Scramble");
+  default-width: 800;
+  default-height: 600;
+  
+  content: Adw.ToastOverlay toast_overlay {
+    child: Adw.ToolbarView {
+      [top]
+      Adw.HeaderBar header_bar {
+        [end]
+        Gtk.MenuButton {
+          icon-name: "open-menu-symbolic";
+          menu-model: primary_menu;
+        }
+      }
+
+      content: Gtk.Box main_box {
+        orientation: horizontal;
+        spacing: 12;
+        margin-top: 12;
+        margin-bottom: 12;
+        margin-start: 12;
+        margin-end: 12;
+
+        Gtk.Box left_panel {
+          orientation: vertical;
+          spacing: 12;
+          hexpand: true;
+
+          Adw.StatusPage welcome_page {
+            title: _("Drop an Image");
+            description: _("Drag and drop an image file here to view its metadata");
+            icon-name: "image-x-generic-symbolic";
+            vexpand: true;
+          }
+
+          Gtk.Picture image_preview {
+            visible: false;
+            can-shrink: true;
+            content-fit: contain;
+          }
+        }
+
+        Gtk.Separator {
+          orientation: vertical;
+        }
+
+        Gtk.Box right_panel {
+          orientation: vertical;
+          spacing: 12;
+          hexpand: true;
+
+          Adw.PreferencesGroup metadata_group {
+            title: _("Metadata");
+            description: _("Image metadata information");
+
+            Gtk.ScrolledWindow metadata_scroll {
+              hscrollbar-policy: never;
+              vscrollbar-policy: automatic;
+              min-content-height: 300;
+
+              Gtk.ListBox metadata_list {
+                selection-mode: none;
+                
+                styles ["boxed-list"]
+              }
+            }
+          }
+
+          Gtk.Button save_button {
+            label: _("Save Clean Copy");
+            halign: center;
+            sensitive: false;
+            
+            styles ["suggested-action", "pill"]
+          }
+        }
+      };
+    };
+  };
+}
+
+menu primary_menu {
+  section {
+    item {
+      label: _("_Preferences");
+      action: "app.preferences";
+    }
+    
+    item {
+      label: _("_About Scramble");
+      action: "app.about";
+    }
+  }
+}

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Type=Application
+Name=Scramble
+GenericName=Image Metadata Removal
+Comment=Privacy-focused image metadata removal tool
+Exec=scramble %F
+Icon=io.github.tobagin.scramble
+Terminal=false
+StartupNotify=true
+Categories=Graphics;Photography;Utility;
+Keywords=metadata;exif;privacy;image;photo;
+MimeType=image/jpeg;image/tiff;
+StartupWMClass=io.github.tobagin.scramble

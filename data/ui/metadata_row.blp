@@ -1,0 +1,16 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MetadataRow : Adw.ActionRow {
+  title: bind template.key_name;
+  subtitle: bind template.value_text;
+  
+  [suffix]
+  Gtk.Button copy_button {
+    icon-name: "edit-copy-symbolic";
+    tooltip-text: _("Copy value");
+    valign: center;
+    
+    styles ["flat"]
+  }
+}
