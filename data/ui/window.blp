@@ -6,6 +6,10 @@ template $ScrambleWindow : Adw.ApplicationWindow {
   default-width: 800;
   default-height: 600;
   
+  /* Accessibility properties */
+  accessible-role: application;
+  accessible-name: _("Scramble Image Metadata Remover");
+  
   content: Adw.ToastOverlay toast_overlay {
     child: Adw.ToolbarView {
       [top]
@@ -14,6 +18,11 @@ template $ScrambleWindow : Adw.ApplicationWindow {
         Gtk.MenuButton {
           icon-name: "open-menu-symbolic";
           menu-model: primary_menu;
+          
+          /* Accessibility */
+          accessible-name: _("Main menu");
+          accessible-description: _("Open application menu with preferences and about options");
+          tooltip-text: _("Main menu");
         }
       }
 
@@ -35,12 +44,22 @@ template $ScrambleWindow : Adw.ApplicationWindow {
             description: _("Drag and drop an image file here to view its metadata");
             icon-name: "image-x-generic-symbolic";
             vexpand: true;
+            
+            /* Accessibility */
+            accessible-role: img;
+            accessible-name: _("Drop zone for images");
+            accessible-description: _("Drag and drop an image file here to view its metadata. Supports JPEG and TIFF formats.");
           }
 
           Gtk.Picture image_preview {
             visible: false;
             can-shrink: true;
             content-fit: contain;
+            
+            /* Accessibility */
+            accessible-role: img;
+            accessible-name: _("Image preview");
+            accessible-description: _("Preview of the loaded image");
           }
         }
 
@@ -61,9 +80,17 @@ template $ScrambleWindow : Adw.ApplicationWindow {
               hscrollbar-policy: never;
               vscrollbar-policy: automatic;
               min-content-height: 300;
+              
+              /* Accessibility */
+              accessible-name: _("Metadata scroll area");
 
               Gtk.ListBox metadata_list {
                 selection-mode: none;
+                
+                /* Accessibility */
+                accessible-role: list;
+                accessible-name: _("Image metadata list");
+                accessible-description: _("List of metadata extracted from the image including EXIF, GPS, and file information");
                 
                 styles ["boxed-list"]
               }
@@ -74,6 +101,11 @@ template $ScrambleWindow : Adw.ApplicationWindow {
             label: _("Save Clean Copy");
             halign: center;
             sensitive: false;
+            
+            /* Accessibility */
+            accessible-name: _("Save Clean Copy");
+            accessible-description: _("Save a copy of the image with all metadata removed. Use Ctrl+S as keyboard shortcut.");
+            tooltip-text: _("Save image without metadata (Ctrl+S)");
             
             styles ["suggested-action", "pill"]
           }

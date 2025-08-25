@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep:*)",
+      "Bash(ls:*)",
+      "Bash(source:*)",
+      "Bash(find:*)",
+      "Bash(mv:*)",
+      "Bash(mkdir:*)",
+      "Bash(tree:*)",
+      "Bash(ruff:*)",
+      "Bash(touch:*)",
+      "Bash(cat:*)",
+      "Bash(ruff check:*)",
+      "Bash(pytest:*)",
+      "Bash(python:*)",
+      "Bash(python -m pytest:*)",
+      "Bash(python3 -m pytest:*)",
+      "WebFetch(domain:docs.anthropic.com)",
+      "WebFetch(domain:pillow.readthedocs.io)",
+      "WebFetch(domain:piexif.readthedocs.io)",
+      "WebFetch(domain:docs.gtk.org)",
+      "WebFetch(domain:gnome.pages.gitlab.gnome.org)",
+      "WebFetch(domain:jwestman.pages.gitlab.gnome.org)",
+      "WebFetch(domain:gitlab.gnome.org)",
+      "WebFetch(domain:docs.flatpak.org)",
+      "Bash(./build.sh:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(flatpak run:*)"
+    ],
+    "deny": []
+  }
+}

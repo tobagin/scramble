@@ -1,0 +1,185 @@
+# English translations for scramble package.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the scramble package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scramble 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-15 23:00+0000\n"
+"PO-Revision-Date: 2025-07-15 23:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: English\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: data/ui/window.blp:5
+msgid "Scramble"
+msgstr "Scramble"
+
+#: data/ui/window.blp:11
+msgid "Scramble Image Metadata Remover"
+msgstr "Scramble Image Metadata Remover"
+
+#: data/ui/window.blp:23
+msgid "Main menu"
+msgstr "Main menu"
+
+#: data/ui/window.blp:24
+msgid "Open application menu with preferences and about options"
+msgstr "Open application menu with preferences and about options"
+
+#: data/ui/window.blp:43
+msgid "Drop an Image"
+msgstr "Drop an Image"
+
+#: data/ui/window.blp:44
+msgid "Drag and drop an image file here to view its metadata"
+msgstr "Drag and drop an image file here to view its metadata"
+
+#: data/ui/window.blp:50
+msgid "Drop zone for images"
+msgstr "Drop zone for images"
+
+#: data/ui/window.blp:51
+msgid "Drag and drop an image file here to view its metadata. Supports JPEG and TIFF formats."
+msgstr "Drag and drop an image file here to view its metadata. Supports JPEG and TIFF formats."
+
+#: data/ui/window.blp:61
+msgid "Image preview"
+msgstr "Image preview"
+
+#: data/ui/window.blp:62
+msgid "Preview of the loaded image"
+msgstr "Preview of the loaded image"
+
+#: data/ui/window.blp:76
+msgid "Metadata"
+msgstr "Metadata"
+
+#: data/ui/window.blp:77
+msgid "Image metadata information"
+msgstr "Image metadata information"
+
+#: data/ui/window.blp:85
+msgid "Metadata scroll area"
+msgstr "Metadata scroll area"
+
+#: data/ui/window.blp:92
+msgid "Image metadata list"
+msgstr "Image metadata list"
+
+#: data/ui/window.blp:93
+msgid "List of metadata extracted from the image including EXIF, GPS, and file information"
+msgstr "List of metadata extracted from the image including EXIF, GPS, and file information"
+
+#: data/ui/window.blp:100
+msgid "Save Clean Copy"
+msgstr "Save Clean Copy"
+
+#: data/ui/window.blp:106
+msgid "Save a copy of the image with all metadata removed. Use Ctrl+S as keyboard shortcut."
+msgstr "Save a copy of the image with all metadata removed. Use Ctrl+S as keyboard shortcut."
+
+#: data/ui/window.blp:108
+msgid "Save image without metadata (Ctrl+S)"
+msgstr "Save image without metadata (Ctrl+S)"
+
+#: data/ui/window.blp:121
+msgid "_Preferences"
+msgstr "_Preferences"
+
+#: data/ui/window.blp:127
+msgid "_About Scramble"
+msgstr "_About Scramble"
+
+#: data/ui/metadata_row.blp:16
+msgid "Copy value"
+msgstr "Copy value"
+
+#: data/ui/metadata_row.blp:20
+msgid "Copy metadata value"
+msgstr "Copy metadata value"
+
+#: data/ui/metadata_row.blp:21
+msgid "Copy this metadata value to clipboard"
+msgstr "Copy this metadata value to clipboard"
+
+# Python UI strings
+#: src/window.py
+msgid "Unsupported file format. Please use JPEG or TIFF files."
+msgstr "Unsupported file format. Please use JPEG or TIFF files."
+
+#: src/window.py
+msgid "Cannot access the dropped file."
+msgstr "Cannot access the dropped file."
+
+#: src/window.py
+msgid "Failed to read metadata: {}"
+msgstr "Failed to read metadata: {}"
+
+#: src/window.py
+msgid "Error loading image: {}"
+msgstr "Error loading image: {}"
+
+#: src/window.py
+msgid "Error loading image preview: {}"
+msgstr "Error loading image preview: {}"
+
+#: src/window.py
+msgid "No metadata found"
+msgstr "No metadata found"
+
+#: src/window.py
+msgid "This image does not contain readable metadata"
+msgstr "This image does not contain readable metadata"
+
+#: src/window.py
+msgid "No metadata found in this image"
+msgstr "No metadata found in this image"
+
+#: src/window.py
+msgid "Loaded {} metadata entries"
+msgstr "Loaded {} metadata entries"
+
+#: src/window.py
+msgid "Save Clean Image"
+msgstr "Save Clean Image"
+
+#: src/window.py
+msgid "JPEG Images"
+msgstr "JPEG Images"
+
+#: src/window.py
+msgid "TIFF Images"
+msgstr "TIFF Images"
+
+#: src/window.py
+msgid "All Files"
+msgstr "All Files"
+
+#: src/window.py
+msgid "Clean image saved to {}"
+msgstr "Clean image saved to {}"
+
+#: src/window.py
+msgid "Failed to save clean image"
+msgstr "Failed to save clean image"
+
+#: src/window.py
+msgid "Invalid save location"
+msgstr "Invalid save location"
+
+#: src/window.py
+msgid "Returned to welcome screen"
+msgstr "Returned to welcome screen"
+#: src/window.py
+msgid "Security validation failed: {}"
+msgstr "Security validation failed: {}"
+
+#: src/window.py
+msgid "Security check failed: {}"
+msgstr "Security check failed: {}"

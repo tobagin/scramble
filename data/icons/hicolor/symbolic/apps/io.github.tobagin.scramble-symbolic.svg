@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!-- Symbolic icon for Scramble - Image Metadata Remover -->
+  
+  <!-- Main image frame -->
+  <rect x="1" y="2" width="10" height="8" rx="1" fill="none" stroke="currentColor" stroke-width="1"/>
+  
+  <!-- Image content (landscape) -->
+  <polygon points="2,8 4,6 6,7 8,5 10,6 10,9 2,9" fill="currentColor" opacity="0.5"/>
+  
+  <!-- Sun in image -->
+  <circle cx="8.5" cy="4.5" r="0.8" fill="currentColor" opacity="0.4"/>
+  
+  <!-- Metadata being removed (dashed lines flowing away) -->
+  <g stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.7">
+    <line x1="11.5" y1="3" x2="14" y2="2" stroke-dasharray="1,0.5"/>
+    <line x1="11.5" y1="4" x2="14.5" y2="3.5" stroke-dasharray="1,0.5"/>
+    <line x1="11.5" y1="5" x2="14" y2="5" stroke-dasharray="1,0.5"/>
+    <line x1="11.5" y1="6" x2="14.5" y2="6.5" stroke-dasharray="1,0.5"/>
+    <line x1="11.5" y1="7" x2="14" y2="8" stroke-dasharray="1,0.5"/>
+  </g>
+  
+  <!-- Crossing out the metadata -->
+  <line x1="11" y1="2.5" x2="15" y2="8.5" stroke="currentColor" stroke-width="1" opacity="0.6"/>
+  
+  <!-- Shield/privacy indicator -->
+  <g fill="currentColor" opacity="0.6">
+    <path d="M2 11.5 L2 14 L4.5 15.5 L7 14 L7 11.5 L4.5 10.5 Z"/>
+    <circle cx="4.5" cy="12.8" r="0.4" fill="white"/>
+  </g>
+  
+  <!-- Success checkmark -->
+  <path d="M10 13 L11.5 14.5 L14.5 11.5" fill="none" stroke="currentColor" 
+        stroke-width="1" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+</svg>

@@ -1,0 +1,182 @@
+# German translations for scramble package.
+# Copyright (C) 2025 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the scramble package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: scramble 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-15 23:00+0000\n"
+"PO-Revision-Date: 2025-07-15 23:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: German\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: data/ui/window.blp:5
+msgid "Scramble"
+msgstr "Scramble"
+
+#: data/ui/window.blp:11
+msgid "Scramble Image Metadata Remover"
+msgstr "Scramble Bild-Metadaten-Entferner"
+
+#: data/ui/window.blp:23
+msgid "Main menu"
+msgstr "Hauptmenü"
+
+#: data/ui/window.blp:24
+msgid "Open application menu with preferences and about options"
+msgstr "Anwendungsmenü mit Einstellungen und Info-Optionen öffnen"
+
+#: data/ui/window.blp:43
+msgid "Drop an Image"
+msgstr "Bild Ablegen"
+
+#: data/ui/window.blp:44
+msgid "Drag and drop an image file here to view its metadata"
+msgstr "Ziehen Sie eine Bilddatei hierher, um ihre Metadaten anzuzeigen"
+
+#: data/ui/window.blp:50
+msgid "Drop zone for images"
+msgstr "Ablegebereich für Bilder"
+
+#: data/ui/window.blp:51
+msgid "Drag and drop an image file here to view its metadata. Supports JPEG and TIFF formats."
+msgstr "Ziehen Sie eine Bilddatei hierher, um ihre Metadaten anzuzeigen. Unterstützt JPEG- und TIFF-Formate."
+
+#: data/ui/window.blp:61
+msgid "Image preview"
+msgstr "Bildvorschau"
+
+#: data/ui/window.blp:62
+msgid "Preview of the loaded image"
+msgstr "Vorschau des geladenen Bildes"
+
+#: data/ui/window.blp:76
+msgid "Metadata"
+msgstr "Metadaten"
+
+#: data/ui/window.blp:77
+msgid "Image metadata information"
+msgstr "Bild-Metadaten-Informationen"
+
+#: data/ui/window.blp:85
+msgid "Metadata scroll area"
+msgstr "Metadaten-Scrollbereich"
+
+#: data/ui/window.blp:92
+msgid "Image metadata list"
+msgstr "Bild-Metadaten-Liste"
+
+#: data/ui/window.blp:93
+msgid "List of metadata extracted from the image including EXIF, GPS, and file information"
+msgstr "Liste der aus dem Bild extrahierten Metadaten einschließlich EXIF-, GPS- und Dateiinformationen"
+
+#: data/ui/window.blp:100
+msgid "Save Clean Copy"
+msgstr "Saubere Kopie Speichern"
+
+#: data/ui/window.blp:106
+msgid "Save a copy of the image with all metadata removed. Use Ctrl+S as keyboard shortcut."
+msgstr "Eine Kopie des Bildes ohne alle Metadaten speichern. Verwenden Sie Strg+S als Tastenkürzel."
+
+#: data/ui/window.blp:108
+msgid "Save image without metadata (Ctrl+S)"
+msgstr "Bild ohne Metadaten speichern (Strg+S)"
+
+#: data/ui/window.blp:121
+msgid "_Preferences"
+msgstr "_Einstellungen"
+
+#: data/ui/window.blp:127
+msgid "_About Scramble"
+msgstr "_Über Scramble"
+
+#: data/ui/metadata_row.blp:16
+msgid "Copy value"
+msgstr "Wert kopieren"
+
+#: data/ui/metadata_row.blp:20
+msgid "Copy metadata value"
+msgstr "Metadaten-Wert kopieren"
+
+#: data/ui/metadata_row.blp:21
+msgid "Copy this metadata value to clipboard"
+msgstr "Diesen Metadaten-Wert in die Zwischenablage kopieren"
+
+# Python UI strings
+#: src/window.py
+msgid "Unsupported file format. Please use JPEG or TIFF files."
+msgstr "Nicht unterstütztes Dateiformat. Bitte verwenden Sie JPEG- oder TIFF-Dateien."
+
+#: src/window.py
+msgid "Cannot access the dropped file."
+msgstr "Kann nicht auf die abgelegte Datei zugreifen."
+
+#: src/window.py
+msgid "Failed to read metadata: {}"
+msgstr "Fehler beim Lesen der Metadaten: {}"
+
+#: src/window.py
+msgid "Error loading image: {}"
+msgstr "Fehler beim Laden des Bildes: {}"
+
+#: src/window.py
+msgid "Error loading image preview: {}"
+msgstr "Fehler beim Laden der Bildvorschau: {}"
+
+#: src/window.py
+msgid "No metadata found"
+msgstr "Keine Metadaten gefunden"
+
+#: src/window.py
+msgid "This image does not contain readable metadata"
+msgstr "Dieses Bild enthält keine lesbaren Metadaten"
+
+#: src/window.py
+msgid "No metadata found in this image"
+msgstr "Keine Metadaten in diesem Bild gefunden"
+
+#: src/window.py
+msgid "Loaded {} metadata entries"
+msgstr "{} Metadaten-Einträge geladen"
+
+#: src/window.py
+msgid "Save Clean Image"
+msgstr "Sauberes Bild Speichern"
+
+#: src/window.py
+msgid "JPEG Images"
+msgstr "JPEG-Bilder"
+
+#: src/window.py
+msgid "TIFF Images"
+msgstr "TIFF-Bilder"
+
+#: src/window.py
+msgid "All Files"
+msgstr "Alle Dateien"
+
+#: src/window.py
+msgid "Clean image saved to {}"
+msgstr "Sauberes Bild gespeichert in {}"
+
+#: src/window.py
+msgid "Failed to save clean image"
+msgstr "Fehler beim Speichern des sauberen Bildes"
+
+#: src/window.py
+msgid "Invalid save location"
+msgstr "Ungültiger Speicherort"
+
+#: src/window.py
+msgid "Returned to welcome screen"
+msgstr "Zurück zum Willkommensbildschirm"
+#: src/window.py
+msgid "Security validation failed: {}"
+msgstr "Sicherheitsvalidierung fehlgeschlagen: {}"

@@ -14,6 +14,7 @@ python_sources = [
   'main.py',
   'window.py',
   'metadata.py',
+  'metadata_row.py',
   'preferences_dialog.py',
   '_version.py'
 ]
