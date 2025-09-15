@@ -32,7 +32,11 @@
       "WebSearch",
       "Bash(magick:*)",
       "Bash(~/test_images/rich_metadata_photo.jpg)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git tag:*)",
+      "Bash(git push:*)",
+      "Bash(git rev-parse:*)",
+      "Bash(git commit:*)"
     ],
     "deny": []
   }

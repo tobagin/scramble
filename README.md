@@ -2,50 +2,58 @@
 
 **Privacy-focused image metadata removal tool**
 
-Scramble is a simple, privacy-focused utility for viewing and removing metadata from images. The application provides a clean, intuitive interface built with GTK4 and Libadwaita, featuring a user-friendly drag-and-drop workflow for metadata inspection and removal.
+Scramble is a modern, privacy-focused utility for viewing and removing metadata from images. Built with GTK4 and LibAdwaita, it provides a clean, intuitive interface with a responsive 50/50 layout for efficient metadata inspection and removal.
+
+![Main Window](data/screenshots/main-window.png)
 
 ## Features
 
-- **Metadata Inspection**: View detailed image metadata (EXIF, IPTC, XMP) in a clear, organized list
-- **One-Click Removal**: Remove all metadata with a single click
-- **Drag-and-Drop Interface**: Simply drag images into the application
-- **Non-Destructive**: Original files are never modified
-- **Privacy-First**: Completely offline operation with no data collection
-- **Format Support**: JPEG and TIFF formats (Phase 1)
+- **Comprehensive Metadata Inspection**: View detailed image metadata (EXIF, IPTC, XMP) with organized display and expandable raw metadata view
+- **One-Click Metadata Removal**: Remove all metadata while preserving image quality
+- **Modern Interface**: Clean GTK4/LibAdwaita design with header bar integration and context-sensitive controls
+- **Drag-and-Drop Support**: Simply drag images into the application or use the open button
+- **Keyboard Shortcuts**: Full keyboard navigation with comprehensive shortcuts for all actions
+- **Non-Destructive Workflow**: Original files are never modified
+- **Privacy-First Design**: Completely offline operation with no data collection
+- **Multiple Format Support**: JPEG, PNG, TIFF, and WebP formats
+- **Version Updates**: Automatic "What's New" dialog with release notes
+
+![Metadata Inspection](data/screenshots/image-with-metadata.png)
+
+## Screenshots
+
+| Main Interface | Metadata View | Clean Result |
+|---|---|---|
+| ![Main](data/screenshots/main-window.png) | ![Metadata](data/screenshots/image-with-metadata.png) | ![Clean](data/screenshots/image-cleaned.png) |
 
 ## Requirements
 
 - GNOME 45+ runtime
-- Python 3.12+
-- GTK4 and Libadwaita
+- Vala compiler (for building from source)
+- GTK4 and LibAdwaita
+- GExiv2 library for metadata handling
 - Flatpak for packaging
 
 ## Building
 
+The application uses a streamlined build system with automatic installation:
+
 ### Development Build
 
-For rapid development and testing:
-
 ```bash
-./build.sh --dev --install --run
+./build.sh --dev
 ```
 
 ### Production Build
 
-For release builds:
-
 ```bash
-./build.sh --prod --clean
+./build.sh
 ```
 
-### Build Options
-
-- `--dev`: Build for development (uses local source)
-- `--prod`: Build for production (uses git source)
-- `--install`: Install the application after building
-- `--run`: Run the application after building/installing
-- `--clean`: Clean build directory before building
-- `--force-clean`: Force clean all Flatpak artifacts
+The build script automatically:
+- Builds the Flatpak package
+- Installs it locally
+- Makes it ready to run
 
 ## Installation
 
@@ -54,10 +62,10 @@ For release builds:
 1. Install dependencies:
    ```bash
    # On Fedora/RHEL
-   sudo dnf install flatpak flatpak-builder
+   sudo dnf install flatpak flatpak-builder vala meson
 
    # On Ubuntu/Debian
-   sudo apt install flatpak flatpak-builder
+   sudo apt install flatpak flatpak-builder valac meson
    ```
 
 2. Add Flathub repository:
@@ -67,7 +75,7 @@ For release builds:
 
 3. Build and install:
    ```bash
-   ./build.sh --dev --install
+   ./build.sh --dev
    ```
 
 ### From Flathub
@@ -81,20 +89,40 @@ For release builds:
    flatpak run io.github.tobagin.scramble
    ```
 
-2. **Load an image** by dragging and dropping it into the application window
+2. **Load an image**:
+   - Drag and drop it into the application window, or
+   - Click the "Open" button in the header bar, or
+   - Use Ctrl+O keyboard shortcut
 
-3. **View metadata** in the right panel - all extractable metadata will be displayed in organized categories
+3. **View metadata** in the right panel:
+   - Organized display of common metadata fields
+   - Expandable "Raw Metadata" section for complete EXIF/XMP data
+   - Click copy buttons to copy individual values
 
-4. **Remove metadata** by clicking the "Save Clean Copy" button and choosing a save location
+4. **Remove metadata**:
+   - Click "Save Clean Copy" in the header bar, or
+   - Use Ctrl+S keyboard shortcut
+   - Choose save location for the cleaned image
 
-5. **Copy metadata values** by clicking the copy button next to any metadata entry
+5. **Clear current image**: Use Ctrl+Shift+C or the clear button to start over
+
+## Keyboard Shortcuts
+
+| Action | Shortcut |
+|--------|----------|
+| Open image | Ctrl+O |
+| Save clean copy | Ctrl+S |
+| Clear current image | Ctrl+Shift+C |
+| Preferences | Ctrl+, |
+| Keyboard shortcuts | Ctrl+? |
+| Quit | Ctrl+Q |
 
 ## Supported Formats
 
-- **JPEG** (.jpg, .jpeg)
-- **TIFF** (.tiff, .tif)
-
-Additional formats (PNG, WebP, RAW) are planned for future releases.
+- **JPEG** (.jpg, .jpeg) - Full EXIF, IPTC, XMP support
+- **PNG** (.png) - Text metadata and color profile support
+- **TIFF** (.tiff, .tif) - Complete metadata support
+- **WebP** (.webp) - EXIF and XMP support
 
 ## Privacy & Security
 
@@ -104,25 +132,57 @@ Scramble is designed with privacy as the top priority:
 - **No Data Collection**: Zero telemetry or analytics
 - **Sandboxed**: Runs in a secure Flatpak environment
 - **Non-Destructive**: Original files are never modified
-- **Secure Memory**: Image data is properly cleaned from memory
+- **Secure Memory**: Image data is properly cleaned from memory after processing
+- **Minimal Permissions**: Only requires access to user image directories
 
 ## Architecture
 
-The application follows a Model-View-Controller (MVC) pattern:
+The application is built with modern GNOME technologies:
 
-- **Model**: Pure Python business logic for metadata operations (`metadata.py`)
-- **View**: Blueprint-defined UI components with LibAdwaita styling
-- **Controller**: Python GTK classes connecting model and view (`window.py`)
+- **Language**: Vala with GTK4/LibAdwaita
+- **UI Definition**: Blueprint markup language (.blp files)
+- **Build System**: Meson with Flatpak packaging
+- **Metadata Engine**: GExiv2 library for comprehensive format support
+- **Image Processing**: GdkPixbuf for loading and metadata stripping
+
+## Development
+
+### Project Structure
+
+```
+├── src/                    # Vala source files
+│   ├── main.vala          # Application entry point
+│   ├── window.vala        # Main window implementation
+│   ├── metadata_row.vala  # Metadata display widget
+│   ├── about-dialog.vala  # About dialog with release notes
+│   └── preferences_dialog.vala # Settings dialog
+├── data/
+│   ├── ui/                # Blueprint UI definitions
+│   ├── screenshots/       # Application screenshots
+│   └── icons/            # Application icons (PNG format)
+├── packaging/            # Flatpak manifests
+└── po/                   # Internationalization
+```
+
+### Building for Development
+
+The development build uses a local source mount for rapid iteration:
+
+```bash
+./build.sh --dev
+```
+
+This creates `io.github.tobagin.scramble.Devel` with the development app ID.
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
+3. Make your changes following the existing Vala/GTK patterns
+4. Test thoroughly with the development build
 5. Submit a pull request
 
-Please ensure your code follows PEP 8 standards and includes appropriate tests.
+Please ensure your code follows GNOME coding standards and includes appropriate comments.
 
 ## License
 
@@ -136,7 +196,8 @@ This project is licensed under the GPL-3.0-or-later license. See the LICENSE fil
 
 ## Acknowledgments
 
-- Built with [GTK4](https://www.gtk.org/) and [Libadwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/)
-- Uses [Blueprint](https://jwestman.pages.gitlab.gnome.org/blueprint-compiler/) for UI definition
-- Metadata handling powered by [Pillow](https://python-pillow.org/) and [piexif](https://pypi.org/project/piexif/)
+- Built with [GTK4](https://www.gtk.org/) and [LibAdwaita](https://gnome.pages.gitlab.gnome.org/libadwaita/)
+- Uses [Blueprint](https://jwestman.pages.gitlab.gnome.org/blueprint-compiler/) for modern UI definition
+- Metadata handling powered by [GExiv2](https://gitlab.gnome.org/GNOME/gexiv2)
 - Distributed via [Flatpak](https://flatpak.org/) for security and portability
+- Icons and design following [GNOME Human Interface Guidelines](https://developer.gnome.org/hig/)

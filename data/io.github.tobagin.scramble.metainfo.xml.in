@@ -57,11 +57,25 @@
     <name>Thiago Fernandes</name>
   </developer>
   
+  <launchable type="desktop-id">@APP_ID@.desktop</launchable>
+
   <provides>
     <binary>scramble</binary>
   </provides>
   
   <releases>
+    <release version="1.0.1" date="2025-09-15">
+      <description>
+        <p>Bug fixes and improvements for Flathub submission</p>
+        <ul>
+          <li>Fixed metainfo launchable element for proper desktop integration</li>
+          <li>Optimized Flatpak manifest with global cleanup rules</li>
+          <li>Enhanced security by removing filesystem permissions and using file portals</li>
+          <li>Improved manifest structure following Flatpak best practices</li>
+          <li>Updated documentation with comprehensive installation and usage instructions</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.0" date="2025-09-15">
       <description>
         <p>Initial release of Scramble - A modern, privacy-focused image metadata removal tool</p>

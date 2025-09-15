@@ -9,10 +9,6 @@ finish-args:
   - --share=ipc
   - --device=dri
   - --share=network
-  - --filesystem=xdg-pictures:rw
-  - --filesystem=xdg-documents:rw
-  - --filesystem=xdg-desktop:rw
-  - --filesystem=xdg-download:rw
 
 modules:
   - name: blueprint-compiler
