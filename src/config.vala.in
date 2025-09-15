@@ -1,0 +1,8 @@
+namespace Config {
+    public const string APP_ID = "@APP_ID@";
+    public const string APP_NAME = "@APP_NAME@";
+    public const string VERSION = "@VERSION@";
+    public const string PKGDATADIR = "@pkgdatadir@";
+    public const string LOCALEDIR = "@localedir@";
+    public const string GETTEXT_PACKAGE = "scramble";
+}

@@ -26,7 +26,13 @@
       "WebFetch(domain:docs.flatpak.org)",
       "Bash(./build.sh:*)",
       "WebFetch(domain:github.com)",
-      "Bash(flatpak run:*)"
+      "Bash(flatpak run:*)",
+      "Read(//home/tobagin/Projects/karere/**)",
+      "Bash(convert:*)",
+      "WebSearch",
+      "Bash(magick:*)",
+      "Bash(~/test_images/rich_metadata_photo.jpg)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

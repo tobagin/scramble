@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
-  <gresource prefix="/io/github/tobagin/scramble">
+  <gresource prefix="/@APP_PATH@">
     <file compressed="true">window.ui</file>
     <file compressed="true">metadata_row.ui</file>
     <file compressed="true">preferences_dialog.ui</file>
+    <file compressed="true">shortcuts-window.ui</file>
   </gresource>
 </gresources>

@@ -1,0 +1,103 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ScrambleShortcutsWindow : Adw.Dialog {
+  title: _("Keyboard Shortcuts");
+  content-width: 600;
+  content-height: 500;
+
+  child: Adw.ToolbarView {
+    top-bar-style: raised;
+    
+    [top]
+    Adw.HeaderBar {
+      title-widget: Adw.WindowTitle {
+        title: _("Keyboard Shortcuts");
+      };
+    }
+
+    content: Gtk.ScrolledWindow {
+      hscrollbar-policy: never;
+      vscrollbar-policy: automatic;
+      vexpand: true;
+
+      child: Adw.PreferencesPage content_page {
+        Adw.PreferencesGroup general_group {
+          title: _("General");
+          description: _("Application-wide shortcuts");
+
+          Adw.ActionRow {
+            title: _("Open Image");
+
+            [suffix]
+            Gtk.ShortcutLabel {
+              accelerator: "<Primary>o";
+              disabled-text: "";
+              valign: center;
+            }
+          }
+
+          Adw.ActionRow {
+            title: _("Clear Image");
+
+            [suffix]
+            Gtk.ShortcutLabel {
+              accelerator: "<Primary><Shift>c";
+              disabled-text: "";
+              valign: center;
+            }
+          }
+
+          Adw.ActionRow {
+            title: _("Save Clean Copy");
+
+            [suffix]
+            Gtk.ShortcutLabel {
+              accelerator: "<Primary>s";
+              disabled-text: "";
+              valign: center;
+            }
+          }
+        }
+
+        Adw.PreferencesGroup app_group {
+          title: _("Application");
+          description: _("Application control shortcuts");
+
+          Adw.ActionRow {
+            title: _("Preferences");
+
+            [suffix]
+            Gtk.ShortcutLabel {
+              accelerator: "<Primary>comma";
+              disabled-text: "";
+              valign: center;
+            }
+          }
+
+          Adw.ActionRow {
+            title: _("Keyboard Shortcuts");
+
+            [suffix]
+            Gtk.ShortcutLabel {
+              accelerator: "<Primary>question";
+              disabled-text: "";
+              valign: center;
+            }
+          }
+
+          Adw.ActionRow {
+            title: _("Quit Application");
+
+            [suffix]
+            Gtk.ShortcutLabel {
+              accelerator: "<Primary>q";
+              disabled-text: "";
+              valign: center;
+            }
+          }
+        }
+      };
+    };
+  };
+}

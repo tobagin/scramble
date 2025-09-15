@@ -3,5 +3,8 @@ data/ui/window.blp
 data/ui/metadata_row.blp
 data/io.github.tobagin.scramble.desktop.in
 data/io.github.tobagin.scramble.metainfo.xml.in
-src/window.py
-src/main.py
+src/main.vala
+src/window.vala
+src/metadata_row.vala
+src/preferences_dialog.vala
+src/about-dialog.vala

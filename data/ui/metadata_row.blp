@@ -1,24 +1,18 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $MetadataRow : Adw.ActionRow {
+template $ScrambleMetadataRow : Adw.ActionRow {
   title: bind template.key_name;
   subtitle: bind template.value_text;
   
-  /* Accessibility */
-  accessible-role: listitem;
-  accessible-name: bind template.key_name;
-  accessible-description: bind template.value_text;
+  /* Accessibility (role only; others set at runtime if needed) */
+  accessible-role: list_item;
   
   [suffix]
   Gtk.Button copy_button {
     icon-name: "edit-copy-symbolic";
     tooltip-text: _("Copy value");
     valign: center;
-    
-    /* Accessibility */
-    accessible-name: _("Copy metadata value");
-    accessible-description: _("Copy this metadata value to clipboard");
     
     styles ["flat"]
   }

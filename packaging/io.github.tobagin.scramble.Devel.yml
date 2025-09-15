@@ -1,4 +1,4 @@
-app-id: io.github.tobagin.scramble
+app-id: io.github.tobagin.scramble.Devel
 runtime: org.gnome.Platform
 runtime-version: '48'
 sdk: org.gnome.Sdk
@@ -8,6 +8,7 @@ finish-args:
   - --socket=fallback-x11
   - --share=ipc
   - --device=dri
+  - --share=network
   - --filesystem=xdg-pictures:rw
   - --filesystem=xdg-documents:rw
   - --filesystem=xdg-desktop:rw
@@ -16,13 +17,11 @@ finish-args:
 modules:
   - name: blueprint-compiler
     buildsystem: meson
-    cleanup:
-      - "*"
     sources:
       - type: git
         url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
         tag: v0.18.0
-        commit: 7a4e4b09a8f1f8c85b8e4b2a2c9e7b3f8e6b6c7e
+        commit: 07c9c9df9cd1b6b4454ecba21ee58211e9144a4b
 
   - name: inih
     buildsystem: meson
@@ -64,12 +63,10 @@ modules:
   - name: scramble
     buildsystem: meson
     config-opts:
-      - -Dprofile=default
+      - -Dprofile=development
     build-options:
       env:
         PKG_CONFIG_PATH: /app/lib/pkgconfig:/app/share/pkgconfig
     sources:
-      - type: git
-        url: https://github.com/tobagin/scramble.git
-        tag: v1.0.0
-        commit: 44e9fd844d666149107a539866d1d25152f81ed7
+      - type: dir
+        path: ..

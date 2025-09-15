@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>@APP_ID@</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>@APP_NAME@</name>
+  <summary>Privacy-focused image metadata removal tool</summary>
+
+  <icon type="stock">@APP_ID@</icon>
+  <description>
+    <p>
+      Scramble is a simple, privacy-focused utility for viewing and removing 
+      metadata from images. The application provides a clean, intuitive interface 
+      featuring a user-friendly drag-and-drop workflow for metadata inspection 
+      and removal.
+    </p>
+    <p>
+      Key features:
+    </p>
+    <ul>
+      <li>View detailed image metadata (EXIF, IPTC, XMP)</li>
+      <li>One-click metadata removal</li>
+      <li>Drag-and-drop image loading</li>
+      <li>Non-destructive workflow - originals are never modified</li>
+      <li>Offline operation - no data collection</li>
+      <li>Support for JPEG, PNG, TIFF, and WebP formats</li>
+    </ul>
+  </description>
+  
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/tobagin/scramble/main/data/screenshots/main-window.png</image>
+      <caption>Main window with clean interface ready for image loading</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/tobagin/scramble/main/data/screenshots/image-with-metadata.png</image>
+      <caption>Image loaded with detailed metadata inspection view</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/tobagin/scramble/main/data/screenshots/image-cleaned.png</image>
+      <caption>After cleaning - metadata removed while preserving image quality</caption>
+    </screenshot>
+    <screenshot>
+      <image>https://raw.githubusercontent.com/tobagin/scramble/main/data/screenshots/about.png</image>
+      <caption>About dialog with release notes and keyboard shortcuts</caption>
+    </screenshot>
+  </screenshots>
+  
+  <url type="homepage">https://github.com/tobagin/scramble</url>
+  <url type="bugtracker">https://github.com/tobagin/scramble/issues</url>
+  <url type="help">https://github.com/tobagin/scramble/discussions</url>
+  <url type="donation">https://github.com/sponsors/tobagin</url>
+  <url type="contact">https://github.com/tobagin</url>
+  <url type="contribute">https://github.com/tobagin/scramble</url>
+  
+  <developer id="io.github.tobagin">
+    <name>Thiago Fernandes</name>
+  </developer>
+  
+  <provides>
+    <binary>scramble</binary>
+  </provides>
+  
+  <releases>
+    <release version="1.0.0" date="2025-09-15">
+      <description>
+        <p>Initial release of Scramble - A modern, privacy-focused image metadata removal tool</p>
+        <ul>
+          <li>Complete metadata viewing with organized display of EXIF, XMP, and IPTC data</li>
+          <li>One-click metadata removal that preserves image quality</li>
+          <li>Intuitive drag-and-drop interface for easy image loading</li>
+          <li>Modern GTK4/LibAdwaita interface with clean 50/50 layout</li>
+          <li>Header bar integration with context-sensitive controls</li>
+          <li>Comprehensive keyboard shortcuts for all major actions</li>
+          <li>Expandable raw metadata view with smart expansion control</li>
+          <li>Automatic "What's New" dialog for version updates</li>
+          <li>Privacy-focused design with offline operation</li>
+          <li>Support for JPEG, PNG, TIFF, and WebP image formats</li>
+          <li>Non-destructive workflow - originals are never modified</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  
+  <content_rating type="oars-1.1"/>
+  
+  <categories>
+    <category>Graphics</category>
+    <category>Photography</category>
+    <category>Utility</category>
+  </categories>
+  
+  <keywords>
+    <keyword>metadata</keyword>
+    <keyword>exif</keyword>
+    <keyword>privacy</keyword>
+    <keyword>image</keyword>
+    <keyword>photo</keyword>
+  </keywords>
+</component>

@@ -1,0 +1,7 @@
+option('profile',
+  type: 'combo',
+  choices: ['stable', 'development'],
+  value: 'stable',
+  description: 'Build profile to tweak app-id/name (stable or development)'
+)
+
