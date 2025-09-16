@@ -23,7 +23,7 @@
       <li>Drag-and-drop image loading</li>
       <li>Non-destructive workflow - originals are never modified</li>
       <li>Offline operation - no data collection</li>
-      <li>Support for JPEG, PNG, TIFF, and WebP formats</li>
+      <li>Support for JPEG, PNG, TIFF, WebP, HEIF, and HEIC formats</li>
     </ul>
   </description>
   
@@ -64,6 +64,27 @@
   </provides>
   
   <releases>
+    <release version="1.1.0" date="2025-09-16">
+      <description>
+        <p>✨ HEIF and HEIC Image Format Support</p>
+        <p>New Features:</p>
+        <ul>
+          <li>Added comprehensive HEIF/HEIC format support with modern compression technology</li>
+          <li>Full Apple HEIC compatibility for iPhone and iPad photos</li>
+          <li>Multi-image HEIF sequence support with primary image display</li>
+          <li>Complete EXIF, XMP, and IPTC metadata extraction from HEIF/HEIC files</li>
+          <li>Enhanced file format detection with header analysis</li>
+        </ul>
+        <p>Technical Improvements:</p>
+        <ul>
+          <li>Integrated libheif and libde265 libraries for native HEIF processing</li>
+          <li>Enabled BMFF (Base Media File Format) support in Exiv2</li>
+          <li>Implemented modular contract-based architecture for extensibility</li>
+          <li>Enhanced UI with HEIF/HEIC MIME type support in file dialogs</li>
+          <li>Maintained privacy-first design with offline-only operation</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.0.1" date="2025-09-15">
       <description>
         <p>Bug fixes and improvements for Flathub submission</p>

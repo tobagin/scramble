@@ -134,3 +134,7 @@ meson-private/
 # OS specific
 .DS_Store
 Thumbs.db
+
+.specify
+specs/
+.claude
