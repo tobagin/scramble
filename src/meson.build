@@ -13,6 +13,12 @@ srcs = [
   'metadata_row.vala',
   'preferences_dialog.vala',
   'shortcuts-window.vala',
+  'heif_format_detector.vala',
+  'heif_metadata_extractor.vala',
+  'heif_image_processor.vala',
+  'heif-format-detection.vala',
+  'heif-metadata-extraction.vala',
+  'heif-image-processing.vala',
 ]
 
 deps = [glib_dep, gio_dep, gtk_dep, adw_dep, gdkpixbuf_dep]

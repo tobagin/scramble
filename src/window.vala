@@ -164,12 +164,16 @@ public class Window : Adw.ApplicationWindow {
             f_images.add_mime_type("image/png");
             f_images.add_mime_type("image/webp");
             f_images.add_mime_type("image/tiff");
+            f_images.add_mime_type("image/heif");
+            f_images.add_mime_type("image/heic");
             f_images.add_pattern("*.jpg");
             f_images.add_pattern("*.jpeg");
             f_images.add_pattern("*.png");
             f_images.add_pattern("*.webp");
             f_images.add_pattern("*.tif");
             f_images.add_pattern("*.tiff");
+            f_images.add_pattern("*.heif");
+            f_images.add_pattern("*.heic");
             dlg.add_filter(f_images);
 
             var f_all = new Gtk.FileFilter();
@@ -450,6 +454,14 @@ public class Window : Adw.ApplicationWindow {
             f_tiff.add_pattern("*.tiff");
             dlg.add_filter(f_tiff);
 
+            var f_heif = new Gtk.FileFilter();
+            f_heif.name = _("HEIF/HEIC Images");
+            f_heif.add_mime_type("image/heif");
+            f_heif.add_mime_type("image/heic");
+            f_heif.add_pattern("*.heif");
+            f_heif.add_pattern("*.heic");
+            dlg.add_filter(f_heif);
+
             dlg.response.connect((res) => {
                 if (res == Gtk.ResponseType.ACCEPT) {
                     var out = dlg.get_file();
@@ -508,7 +520,8 @@ public class Window : Adw.ApplicationWindow {
             var lower = path.down();
             return lower.has_suffix(".jpg") || lower.has_suffix(".jpeg") ||
                    lower.has_suffix(".png") || lower.has_suffix(".webp") ||
-                   lower.has_suffix(".tif") || lower.has_suffix(".tiff");
+                   lower.has_suffix(".tif") || lower.has_suffix(".tiff") ||
+                   lower.has_suffix(".heif") || lower.has_suffix(".heic");
         }
 
         private void show_error_toast(string msg) {

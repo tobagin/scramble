@@ -15,7 +15,7 @@ Scramble is a modern, privacy-focused utility for viewing and removing metadata 
 - **Keyboard Shortcuts**: Full keyboard navigation with comprehensive shortcuts for all actions
 - **Non-Destructive Workflow**: Original files are never modified
 - **Privacy-First Design**: Completely offline operation with no data collection
-- **Multiple Format Support**: JPEG, PNG, TIFF, and WebP formats
+- **Multiple Format Support**: JPEG, PNG, TIFF, WebP, HEIF, and HEIC formats
 - **Version Updates**: Automatic "What's New" dialog with release notes
 
 ![Metadata Inspection](data/screenshots/image-with-metadata.png)
@@ -31,7 +31,7 @@ Scramble is a modern, privacy-focused utility for viewing and removing metadata 
 - GNOME 45+ runtime
 - Vala compiler (for building from source)
 - GTK4 and LibAdwaita
-- GExiv2 library for metadata handling
+- GExiv2 library for metadata handling (with BMFF support for HEIF/HEIC)
 - Flatpak for packaging
 
 ## Building
@@ -123,6 +123,8 @@ The build script automatically:
 - **PNG** (.png) - Text metadata and color profile support
 - **TIFF** (.tiff, .tif) - Complete metadata support
 - **WebP** (.webp) - EXIF and XMP support
+- **HEIF** (.heif) - Full EXIF, IPTC, XMP support with modern compression
+- **HEIC** (.heic) - Apple's HEIF implementation with complete metadata support
 
 ## Privacy & Security
 
@@ -142,7 +144,7 @@ The application is built with modern GNOME technologies:
 - **Language**: Vala with GTK4/LibAdwaita
 - **UI Definition**: Blueprint markup language (.blp files)
 - **Build System**: Meson with Flatpak packaging
-- **Metadata Engine**: GExiv2 library for comprehensive format support
+- **Metadata Engine**: GExiv2 library with BMFF support for comprehensive HEIF/HEIC format support
 - **Image Processing**: GdkPixbuf for loading and metadata stripping
 
 ## Development
