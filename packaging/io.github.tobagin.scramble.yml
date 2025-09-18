@@ -1,6 +1,6 @@
 app-id: io.github.tobagin.scramble
 runtime: org.gnome.Platform
-runtime-version: '48'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 command: scramble
 finish-args:
@@ -103,5 +103,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/tobagin/scramble.git
-        tag: v1.1.0
-        commit: 3ad6f22448343727dae332831d52006199ee13b6
+        tag: v1.1.1
+        commit: 0c37313af8cc7aba67e8ceaee3b0b2f7b8b5cb35

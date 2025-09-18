@@ -42,7 +42,8 @@
       "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
       "Bash(.specify/scripts/bash/check-task-prerequisites.sh:*)",
       "Bash(git ls-remote:*)",
-      "Bash(timeout 5s flatpak run io.github.tobagin.scramble.Devel)"
+      "Bash(timeout 5s flatpak run io.github.tobagin.scramble.Devel)",
+      "Bash(sed:*)"
     ],
     "deny": []
   }
