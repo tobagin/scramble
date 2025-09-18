@@ -58,6 +58,7 @@ modules:
       - -DCMAKE_BUILD_TYPE=Release
       - -DENABLE_DECODER=ON
       - -DENABLE_ENCODER=OFF
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     cleanup:
       - /bin
     sources:
@@ -103,5 +104,5 @@ modules:
     sources:
       - type: git
         url: https://github.com/tobagin/scramble.git
-        tag: v1.1.1
-        commit: 0c37313af8cc7aba67e8ceaee3b0b2f7b8b5cb35
+        tag: v1.1.2
+        commit: 52998823762175cf840837a8072857617927fb03

@@ -64,6 +64,21 @@
   </provides>
   
   <releases>
+    <release version="1.1.2" date="2025-09-18">
+      <description>
+        <p>🐛 Bug Fixes and Improvements</p>
+        <p>Bug Fixes:</p>
+        <ul>
+          <li>Fixed production build commit hash mismatch in Flatpak manifest</li>
+          <li>Resolved CMake policy compatibility issue with libde265 dependency</li>
+        </ul>
+        <p>Improvements:</p>
+        <ul>
+          <li>Enhanced build stability and reliability</li>
+          <li>Better build system error handling</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.1.1" date="2025-09-18">
       <description>
         <p>📦 Runtime Update</p>
