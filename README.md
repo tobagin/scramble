@@ -80,7 +80,7 @@ The build script automatically:
 
 ### From Flathub
 
-*Coming soon - application will be available on Flathub after initial release*
+[![Get it on Flathub](https://flathub.org/_next/image?url=%2Fapi%2Fbadge%3Flocale%3Den&w=640&q=75)](https://flathub.org/en/apps/io.github.tobagin.scramble)
 
 ## Usage
 
