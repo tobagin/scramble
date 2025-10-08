@@ -56,16 +56,37 @@ namespace Scramble {
                 var out_file = GLib.File.new_for_path(final_out_path);
                 var output_stream = out_file.replace(null, false, GLib.FileCreateFlags.NONE);
 
+                // GdkPixbuf save_to_streamv only supports: jpeg, png, ico, bmp
+                // For other formats, convert to best available format
                 if (format == "jpeg") {
+                    debug("Saving as JPEG");
                     pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
                 } else if (format == "png") {
+                    debug("Saving as PNG");
                     pixbuf.save_to_streamv(output_stream, "png", null, null);
-                } else if (format == "webp") {
-                    pixbuf.save_to_streamv(output_stream, "webp", {"quality"}, {"95"});
-                } else if (format == "tiff") {
-                    pixbuf.save_to_streamv(output_stream, "tiff", {"compression"}, {"1"});
+                } else if (format == "webp" || format == "tiff") {
+                    // GdkPixbuf doesn't support WebP/TIFF in save_to_streamv
+                    // Convert to PNG (lossless) for these formats
+                    warning("Format %s not directly supported, converting to PNG", format);
+                    output_stream.close();
+
+                    // Change extension to .png
+                    var png_path = final_out_path;
+                    if (format == "webp") {
+                        png_path = final_out_path.replace(".webp", ".png");
+                    } else if (format == "tiff") {
+                        png_path = final_out_path.replace(".tiff", ".png").replace(".tif", ".png");
+                    }
+
+                    var png_file = GLib.File.new_for_path(png_path);
+                    var png_stream = png_file.replace(null, false, GLib.FileCreateFlags.NONE);
+                    pixbuf.save_to_streamv(png_stream, "png", null, null);
+                    png_stream.close();
+                    debug("Saved as PNG: %s", png_path);
+                    return true;
                 } else {
                     // Default to JPEG if format is unknown
+                    debug("Unknown format, defaulting to JPEG");
                     pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
                 }
 
