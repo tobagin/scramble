@@ -43,7 +43,13 @@
       "Bash(.specify/scripts/bash/check-task-prerequisites.sh:*)",
       "Bash(git ls-remote:*)",
       "Bash(timeout 5s flatpak run io.github.tobagin.scramble.Devel)",
-      "Bash(sed:*)"
+      "Bash(sed:*)",
+      "Bash(echo $COMMIT_HASH)",
+      "Bash(flatpak list:*)",
+      "Read(//home/tobagin/**)",
+      "Bash(awk:*)",
+      "Bash(git rm:*)",
+      "Bash(timeout 10 tail:*)"
     ],
     "deny": []
   }

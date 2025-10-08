@@ -9,16 +9,14 @@ srcs = [
   config_vala,
   'main.vala',
   'window.vala',
+  'metadata_display.vala',
+  'image_operations.vala',
+  'file_validator.vala',
+  'secure_memory.vala',
   'about-dialog.vala',
   'metadata_row.vala',
   'preferences_dialog.vala',
   'shortcuts-window.vala',
-  'heif_format_detector.vala',
-  'heif_metadata_extractor.vala',
-  'heif_image_processor.vala',
-  'heif-format-detection.vala',
-  'heif-metadata-extraction.vala',
-  'heif-image-processing.vala',
 ]
 
 deps = [glib_dep, gio_dep, gtk_dep, adw_dep, gdkpixbuf_dep]
