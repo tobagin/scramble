@@ -15,6 +15,7 @@ srcs = [
   'secure_memory.vala',
   'batch_processor.vala',
   'metadata_exporter.vala',
+  'comparison_dialog.vala',
   'about-dialog.vala',
   'metadata_row.vala',
   'preferences_dialog.vala',

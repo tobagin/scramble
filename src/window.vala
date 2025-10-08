@@ -87,6 +87,12 @@ public class Window : Adw.ApplicationWindow {
             });
             this.add_action(export_action);
 
+            var compare_action = new GLib.SimpleAction("compare", null);
+            compare_action.activate.connect(() => {
+                if (current_image_path != null) on_compare_clicked();
+            });
+            this.add_action(compare_action);
+
             // Setup keyboard accelerators
             var app = this.application as Adw.Application;
             if (app != null) {
@@ -95,6 +101,7 @@ public class Window : Adw.ApplicationWindow {
                 app.set_accels_for_action("win.save", {"<Primary>s"});
                 app.set_accels_for_action("win.batch-process", {"<Primary>b"});
                 app.set_accels_for_action("win.export-metadata", {"<Primary>e"});
+                app.set_accels_for_action("win.compare", {"<Primary>r"});
                 app.set_accels_for_action("win.show-shortcuts", {"<Primary>question"});
             }
         }
@@ -481,6 +488,14 @@ public class Window : Adw.ApplicationWindow {
                     debug("Export cancelled or error: %s", e.message);
                 }
             });
+        }
+
+        private void on_compare_clicked() {
+            if (current_image_path == null)
+                return;
+
+            var comparison_dialog = new ComparisonDialog(this, current_image_path);
+            comparison_dialog.present();
         }
 
         private void show_error_toast(string msg) {
