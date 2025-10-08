@@ -1,67 +1,63 @@
 using Gtk 4.0;
-using Adw 1;
 
-template $ScrambleShortcutsWindow : Adw.Dialog {
-  title: _("Keyboard Shortcuts");
-  content-width: 600;
-  content-height: 500;
+Gtk.ShortcutsWindow shortcuts_window {
+  modal: true;
 
-  child: Adw.ToolbarView {
-    top-bar-style: raised;
-    
-    [top]
-    Adw.HeaderBar {
-      title-widget: Adw.WindowTitle {
-        title: _("Keyboard Shortcuts");
-      };
+  Gtk.ShortcutsSection {
+    section-name: "shortcuts";
+    max-height: 10;
+
+    Gtk.ShortcutsGroup {
+      title: _("General");
+
+      Gtk.ShortcutsShortcut {
+        title: _("Open Image");
+        action-name: "win.open";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _("Save Clean Copy");
+        action-name: "win.save";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _("Clear Image");
+        action-name: "win.clear";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _("Compare Before/After");
+        action-name: "win.compare";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _("Batch Process");
+        action-name: "win.batch-process";
+      }
+
+      Gtk.ShortcutsShortcut {
+        title: _("Export Metadata");
+        action-name: "win.export-metadata";
+      }
     }
 
-    content: Gtk.ScrolledWindow {
-      hscrollbar-policy: never;
-      vscrollbar-policy: automatic;
-      vexpand: true;
+    Gtk.ShortcutsGroup {
+      title: _("Application");
 
-      child: Adw.PreferencesPage content_page {
-        Adw.PreferencesGroup general_group {
-          title: _("General");
-          description: _("Application-wide shortcuts");
+      Gtk.ShortcutsShortcut {
+        title: _("Preferences");
+        action-name: "app.preferences";
+      }
 
-          Adw.ActionRow {
-            title: _("Open Image");
-            subtitle: "Ctrl+O";
-          }
+      Gtk.ShortcutsShortcut {
+        title: _("Keyboard Shortcuts");
+        action-name: "win.show-shortcuts";
+      }
 
-          Adw.ActionRow {
-            title: _("Clear Image");
-            subtitle: "Ctrl+Shift+C";
-          }
-
-          Adw.ActionRow {
-            title: _("Save Clean Copy");
-            subtitle: "Ctrl+S";
-          }
-        }
-
-        Adw.PreferencesGroup app_group {
-          title: _("Application");
-          description: _("Application control shortcuts");
-
-          Adw.ActionRow {
-            title: _("Preferences");
-            subtitle: "Ctrl+,";
-          }
-
-          Adw.ActionRow {
-            title: _("Keyboard Shortcuts");
-            subtitle: "Ctrl+?";
-          }
-
-          Adw.ActionRow {
-            title: _("Quit Application");
-            subtitle: "Ctrl+Q";
-          }
-        }
-      };
-    };
-  };
+      Gtk.ShortcutsShortcut {
+        title: _("Quit");
+        action-name: "app.quit";
+      }
+    }
+  }
 }

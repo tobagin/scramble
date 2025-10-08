@@ -107,8 +107,7 @@ public class Window : Adw.ApplicationWindow {
         }
 
         private void show_shortcuts_window() {
-            var shortcuts_window = new ShortcutsWindow(this);
-            shortcuts_window.present(this);
+            ShortcutsWindow.show(this);
         }
 
         private bool on_drop(Gtk.DropTarget target, GLib.Value value, double x, double y) {
