@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Karere build script
+# Scramble build script
 # Usage: ./build.sh [--dev]
 
 set -e

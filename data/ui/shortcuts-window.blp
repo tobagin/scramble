@@ -1,103 +1,57 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $ScrambleShortcutsWindow : Adw.Dialog {
-  title: _("Keyboard Shortcuts");
-  content-width: 600;
-  content-height: 500;
+Adw.ShortcutsDialog shortcuts_window {
+  Adw.ShortcutsSection {
+    title: _("General");
 
-  child: Adw.ToolbarView {
-    top-bar-style: raised;
-    
-    [top]
-    Adw.HeaderBar {
-      title-widget: Adw.WindowTitle {
-        title: _("Keyboard Shortcuts");
-      };
+    Adw.ShortcutsItem {
+      title: _("Open Image");
+      action-name: "win.open";
     }
 
-    content: Gtk.ScrolledWindow {
-      hscrollbar-policy: never;
-      vscrollbar-policy: automatic;
-      vexpand: true;
+    Adw.ShortcutsItem {
+      title: _("Save Clean Copy");
+      action-name: "win.save";
+    }
 
-      child: Adw.PreferencesPage content_page {
-        Adw.PreferencesGroup general_group {
-          title: _("General");
-          description: _("Application-wide shortcuts");
+    Adw.ShortcutsItem {
+      title: _("Clear Image");
+      action-name: "win.clear";
+    }
 
-          Adw.ActionRow {
-            title: _("Open Image");
+    Adw.ShortcutsItem {
+      title: _("Compare Before/After");
+      action-name: "win.compare";
+    }
 
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>o";
-              disabled-text: "";
-              valign: center;
-            }
-          }
+    Adw.ShortcutsItem {
+      title: _("Batch Process");
+      action-name: "win.batch-process";
+    }
 
-          Adw.ActionRow {
-            title: _("Clear Image");
+    Adw.ShortcutsItem {
+      title: _("Export Metadata");
+      action-name: "win.export-metadata";
+    }
+  }
 
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary><Shift>c";
-              disabled-text: "";
-              valign: center;
-            }
-          }
+  Adw.ShortcutsSection {
+    title: _("Application");
 
-          Adw.ActionRow {
-            title: _("Save Clean Copy");
+    Adw.ShortcutsItem {
+      title: _("Preferences");
+      action-name: "app.preferences";
+    }
 
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>s";
-              disabled-text: "";
-              valign: center;
-            }
-          }
-        }
+    Adw.ShortcutsItem {
+      title: _("Keyboard Shortcuts");
+      action-name: "win.show-shortcuts";
+    }
 
-        Adw.PreferencesGroup app_group {
-          title: _("Application");
-          description: _("Application control shortcuts");
-
-          Adw.ActionRow {
-            title: _("Preferences");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>comma";
-              disabled-text: "";
-              valign: center;
-            }
-          }
-
-          Adw.ActionRow {
-            title: _("Keyboard Shortcuts");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>question";
-              disabled-text: "";
-              valign: center;
-            }
-          }
-
-          Adw.ActionRow {
-            title: _("Quit Application");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>q";
-              disabled-text: "";
-              valign: center;
-            }
-          }
-        }
-      };
-    };
-  };
+    Adw.ShortcutsItem {
+      title: _("Quit");
+      action-name: "app.quit";
+    }
+  }
 }

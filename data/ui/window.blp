@@ -123,6 +123,26 @@ template $ScrambleWindow : Adw.ApplicationWindow {
 menu primary_menu {
   section {
     item {
+      label: _("_Compare Before/After");
+      action: "win.compare";
+      accel: "<Primary>r";
+    }
+
+    item {
+      label: _("_Batch Process");
+      action: "win.batch-process";
+      accel: "<Primary>b";
+    }
+
+    item {
+      label: _("_Export Metadata");
+      action: "win.export-metadata";
+      accel: "<Primary>e";
+    }
+  }
+
+  section {
+    item {
       label: _("_Preferences");
       action: "app.preferences";
       accel: "<Primary>comma";

@@ -10,12 +10,15 @@ Scramble is a modern, privacy-focused utility for viewing and removing metadata 
 
 - **Comprehensive Metadata Inspection**: View detailed image metadata (EXIF, IPTC, XMP) with organized display and expandable raw metadata view
 - **One-Click Metadata Removal**: Remove all metadata while preserving image quality
+- **Batch Processing**: Process multiple images at once with progress tracking and detailed reports
+- **Before/After Comparison**: Side-by-side comparison view to preview changes before saving
+- **Metadata Export**: Export metadata to JSON or CSV for analysis and documentation
 - **Modern Interface**: Clean GTK4/LibAdwaita design with header bar integration and context-sensitive controls
 - **Drag-and-Drop Support**: Simply drag images into the application or use the open button
 - **Keyboard Shortcuts**: Full keyboard navigation with comprehensive shortcuts for all actions
 - **Non-Destructive Workflow**: Original files are never modified
 - **Privacy-First Design**: Completely offline operation with no data collection
-- **Multiple Format Support**: JPEG, PNG, TIFF, and WebP formats
+- **Multiple Format Support**: Read HEIF/HEIC/TIFF/WebP, output to JPEG/PNG/WebP
 - **Version Updates**: Automatic "What's New" dialog with release notes
 
 ![Metadata Inspection](data/screenshots/image-with-metadata.png)
@@ -31,7 +34,7 @@ Scramble is a modern, privacy-focused utility for viewing and removing metadata 
 - GNOME 45+ runtime
 - Vala compiler (for building from source)
 - GTK4 and LibAdwaita
-- GExiv2 library for metadata handling
+- GExiv2 library for metadata handling (with BMFF support for HEIF/HEIC)
 - Flatpak for packaging
 
 ## Building
@@ -112,6 +115,9 @@ The build script automatically:
 |--------|----------|
 | Open image | Ctrl+O |
 | Save clean copy | Ctrl+S |
+| Compare before/after | Ctrl+R |
+| Batch process | Ctrl+B |
+| Export metadata | Ctrl+E |
 | Clear current image | Ctrl+Shift+C |
 | Preferences | Ctrl+, |
 | Keyboard shortcuts | Ctrl+? |
@@ -119,10 +125,24 @@ The build script automatically:
 
 ## Supported Formats
 
+### Input Formats (Read & Clean)
 - **JPEG** (.jpg, .jpeg) - Full EXIF, IPTC, XMP support
 - **PNG** (.png) - Text metadata and color profile support
 - **TIFF** (.tiff, .tif) - Complete metadata support
 - **WebP** (.webp) - EXIF and XMP support
+- **HEIF** (.heif) - Full EXIF, IPTC, XMP support with modern compression
+- **HEIC** (.heic) - Apple's HEIF implementation with complete metadata support
+
+### Output Formats (Save Clean)
+- **JPEG** - High quality (95%) compression
+- **PNG** - Lossless compression
+- **WebP** - High quality (95%) compression with modern efficiency
+
+**Note**: Due to GdkPixbuf limitations with the portal file API:
+- HEIF/HEIC files are converted to JPEG, PNG, or WebP
+- TIFF files requested for output are automatically converted to PNG (lossless)
+
+This ensures maximum compatibility while preserving image quality across all platforms.
 
 ## Privacy & Security
 
@@ -142,7 +162,7 @@ The application is built with modern GNOME technologies:
 - **Language**: Vala with GTK4/LibAdwaita
 - **UI Definition**: Blueprint markup language (.blp files)
 - **Build System**: Meson with Flatpak packaging
-- **Metadata Engine**: GExiv2 library for comprehensive format support
+- **Metadata Engine**: GExiv2 library with BMFF support for comprehensive HEIF/HEIC format support
 - **Image Processing**: GdkPixbuf for loading and metadata stripping
 
 ## Development

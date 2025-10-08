@@ -1,6 +1,6 @@
 app-id: io.github.tobagin.scramble.Devel
 runtime: org.gnome.Platform
-runtime-version: '48'
+runtime-version: '49'
 sdk: org.gnome.Sdk
 command: scramble
 finish-args:
@@ -11,14 +11,6 @@ finish-args:
   - --share=network
 
 modules:
-  - name: blueprint-compiler
-    buildsystem: meson
-    sources:
-      - type: git
-        url: https://gitlab.gnome.org/GNOME/blueprint-compiler.git
-        tag: v0.18.0
-        commit: 07c9c9df9cd1b6b4454ecba21ee58211e9144a4b
-
   - name: inih
     buildsystem: meson
     config-opts:
@@ -37,13 +29,47 @@ modules:
       - -DEXIV2_ENABLE_NLS=ON
       - -DEXIV2_BUILD_SAMPLES=OFF
       - -DEXIV2_BUILD_EXIV2_COMMAND=OFF
-      - -DEXIV2_ENABLE_BMFF=OFF
+      - -DEXIV2_ENABLE_BMFF=ON
       - -DCMAKE_CXX_FLAGS=-Wno-format
     sources:
       - type: git
         url: https://github.com/Exiv2/exiv2.git
         tag: v0.28.7
         commit: afcb7a8ba84a7de36d2f1ee7689394e078697956
+
+  - name: libde265
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DENABLE_DECODER=ON
+      - -DENABLE_ENCODER=OFF
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
+    cleanup:
+      - /bin
+    sources:
+      - type: git
+        url: https://github.com/strukturag/libde265.git
+        tag: v1.0.15
+        commit: 17bb8d9fcea62db8cdeb0fc7ef8d15dbd19a22e4
+
+  - name: libheif
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DWITH_LIBDE265=ON
+      - -DWITH_X265=OFF
+      - -DWITH_AOM_DECODER=OFF
+      - -DWITH_JPEG_DECODER=ON
+      - -DWITH_JPEG_ENCODER=OFF
+      - -DENABLE_PLUGIN_LOADING=OFF
+    cleanup:
+      - /bin
+      - /share/thumbnailers
+    sources:
+      - type: git
+        url: https://github.com/strukturag/libheif.git
+        tag: v1.19.8
+        commit: 5e9deb19fe6b3768af0bb8e9e5e8438b15171bf3
 
   - name: gexiv2
     buildsystem: meson
