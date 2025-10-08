@@ -123,6 +123,14 @@ template $ScrambleWindow : Adw.ApplicationWindow {
 menu primary_menu {
   section {
     item {
+      label: _("_Batch Process");
+      action: "win.batch-process";
+      accel: "<Primary>b";
+    }
+  }
+
+  section {
+    item {
       label: _("_Preferences");
       action: "app.preferences";
       accel: "<Primary>comma";

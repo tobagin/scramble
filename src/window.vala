@@ -77,12 +77,17 @@ public class Window : Adw.ApplicationWindow {
             shortcuts_action.activate.connect(() => show_shortcuts_window());
             this.add_action(shortcuts_action);
 
+            var batch_action = new GLib.SimpleAction("batch-process", null);
+            batch_action.activate.connect(() => on_batch_process_clicked());
+            this.add_action(batch_action);
+
             // Setup keyboard accelerators
             var app = this.application as Adw.Application;
             if (app != null) {
                 app.set_accels_for_action("win.open", {"<Primary>o"});
                 app.set_accels_for_action("win.clear", {"<Primary><Shift>c"});
                 app.set_accels_for_action("win.save", {"<Primary>s"});
+                app.set_accels_for_action("win.batch-process", {"<Primary>b"});
                 app.set_accels_for_action("win.show-shortcuts", {"<Primary>question"});
             }
         }
@@ -286,6 +291,109 @@ public class Window : Adw.ApplicationWindow {
                     // User cancelled - silently ignore
                     debug("Save cancelled or error: %s", e.message);
                 }
+            });
+        }
+
+        private void on_batch_process_clicked() {
+            // Open file dialog to select multiple files
+            var dlg = new Gtk.FileDialog();
+            dlg.title = _("Select Images for Batch Processing");
+
+            // Filters
+            var filters = new GLib.ListStore(typeof(Gtk.FileFilter));
+
+            var f_images = new Gtk.FileFilter();
+            f_images.name = _("All Supported Images");
+            f_images.add_mime_type("image/jpeg");
+            f_images.add_mime_type("image/png");
+            f_images.add_mime_type("image/webp");
+            f_images.add_mime_type("image/tiff");
+            f_images.add_mime_type("image/heif");
+            f_images.add_mime_type("image/heic");
+            filters.append(f_images);
+
+            dlg.filters = filters;
+
+            // Use open_multiple to select multiple files
+            dlg.open_multiple.begin(this, null, (obj, res) => {
+                try {
+                    var files = dlg.open_multiple.end(res);
+                    if (files == null) {
+                        return;
+                    }
+
+                    // Convert GLib.ListModel to List<string>
+                    var paths = new List<string>();
+                    for (uint i = 0; i < files.get_n_items(); i++) {
+                        var file = files.get_item(i) as GLib.File;
+                        if (file != null) {
+                            string? path = file.get_path();
+                            if (path != null && ImageOperations.is_supported_format(path)) {
+                                paths.append(path);
+                            }
+                        }
+                    }
+
+                    if (paths.length() == 0) {
+                        show_error_toast(_("No valid images selected"));
+                        return;
+                    }
+
+                    // Now ask for output directory
+                    var dir_dlg = new Gtk.FileDialog();
+                    dir_dlg.title = _("Select Output Directory");
+
+                    dir_dlg.select_folder.begin(this, null, (obj2, res2) => {
+                        try {
+                            var output_dir = dir_dlg.select_folder.end(res2);
+                            string? output_path = output_dir.get_path();
+
+                            if (output_path != null) {
+                                process_batch(paths, output_path);
+                            }
+                        } catch (Error e) {
+                            debug("Output directory selection cancelled: %s", e.message);
+                        }
+                    });
+                } catch (Error e) {
+                    debug("File selection cancelled: %s", e.message);
+                }
+            });
+        }
+
+        private void process_batch(List<string> paths, string output_dir) {
+            show_success_toast(_("Processing %d images...").printf((int)paths.length()));
+
+            // Process in a separate thread to avoid blocking UI
+            new Thread<void*>(null, () => {
+                var results = BatchProcessor.process_batch(paths, output_dir, (current, total, filename) => {
+                    // Update progress on main thread
+                    GLib.Idle.add(() => {
+                        show_success_toast(_("Processing %d/%d: %s").printf(current, total, filename));
+                        return false;
+                    });
+                });
+
+                // Show final report on main thread
+                int success_count, failed_count;
+                BatchProcessor.get_summary(results, out success_count, out failed_count);
+
+                GLib.Idle.add(() => {
+                    if (failed_count == 0) {
+                        show_success_toast(_("Successfully processed %d images!").printf(success_count));
+                    } else {
+                        show_error_toast(_("Processed %d images (%d failed)").printf(success_count, failed_count));
+
+                        // Show detailed report in a dialog
+                        var report_dialog = new Adw.AlertDialog(_("Batch Processing Complete"), BatchProcessor.generate_report(results));
+                        report_dialog.add_response("ok", _("OK"));
+                        report_dialog.default_response = "ok";
+                        report_dialog.present(this);
+                    }
+                    return false;
+                });
+
+                return null;
             });
         }
 
