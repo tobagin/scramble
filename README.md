@@ -10,12 +10,15 @@ Scramble is a modern, privacy-focused utility for viewing and removing metadata 
 
 - **Comprehensive Metadata Inspection**: View detailed image metadata (EXIF, IPTC, XMP) with organized display and expandable raw metadata view
 - **One-Click Metadata Removal**: Remove all metadata while preserving image quality
+- **Batch Processing**: Process multiple images at once with progress tracking and detailed reports
+- **Before/After Comparison**: Side-by-side comparison view to preview changes before saving
+- **Metadata Export**: Export metadata to JSON or CSV for analysis and documentation
 - **Modern Interface**: Clean GTK4/LibAdwaita design with header bar integration and context-sensitive controls
 - **Drag-and-Drop Support**: Simply drag images into the application or use the open button
 - **Keyboard Shortcuts**: Full keyboard navigation with comprehensive shortcuts for all actions
 - **Non-Destructive Workflow**: Original files are never modified
 - **Privacy-First Design**: Completely offline operation with no data collection
-- **Multiple Format Support**: JPEG, PNG, TIFF, WebP, HEIF, and HEIC formats
+- **Multiple Format Support**: Read HEIF/HEIC, output to JPEG, PNG, TIFF, WebP
 - **Version Updates**: Automatic "What's New" dialog with release notes
 
 ![Metadata Inspection](data/screenshots/image-with-metadata.png)
@@ -112,6 +115,9 @@ The build script automatically:
 |--------|----------|
 | Open image | Ctrl+O |
 | Save clean copy | Ctrl+S |
+| Compare before/after | Ctrl+R |
+| Batch process | Ctrl+B |
+| Export metadata | Ctrl+E |
 | Clear current image | Ctrl+Shift+C |
 | Preferences | Ctrl+, |
 | Keyboard shortcuts | Ctrl+? |
@@ -119,12 +125,21 @@ The build script automatically:
 
 ## Supported Formats
 
+### Input Formats (Read & Clean)
 - **JPEG** (.jpg, .jpeg) - Full EXIF, IPTC, XMP support
 - **PNG** (.png) - Text metadata and color profile support
 - **TIFF** (.tiff, .tif) - Complete metadata support
 - **WebP** (.webp) - EXIF and XMP support
 - **HEIF** (.heif) - Full EXIF, IPTC, XMP support with modern compression
 - **HEIC** (.heic) - Apple's HEIF implementation with complete metadata support
+
+### Output Formats (Save Clean)
+- **JPEG** - High quality (95%) compression
+- **PNG** - Lossless compression
+- **TIFF** - Lossless with minimal compression
+- **WebP** - High quality (95%) compression
+
+**Note**: HEIF/HEIC files can be opened and cleaned, but are saved to JPEG/PNG/TIFF/WebP formats due to GdkPixbuf limitations. This ensures maximum compatibility while preserving image quality.
 
 ## Privacy & Security
 
