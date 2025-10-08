@@ -43,6 +43,7 @@ modules:
       - -DCMAKE_BUILD_TYPE=Release
       - -DENABLE_DECODER=ON
       - -DENABLE_ENCODER=OFF
+      - -DCMAKE_POLICY_VERSION_MINIMUM=3.5
     cleanup:
       - /bin
     sources:

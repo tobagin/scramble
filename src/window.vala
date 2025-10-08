@@ -485,18 +485,22 @@ public class Window : Adw.ApplicationWindow {
                 // Determine output format from file extension
                 string format = infer_image_type(out_path);
 
+                // Ensure output path has correct extension
+                string final_out_path = ensure_extension(out_path, format);
+
                 // Save without any metadata
+                // Note: Using null instead of {} for empty arrays to ensure proper null-termination
                 if (format == "jpeg") {
-                    pixbuf.savev(out_path, "jpeg", {"quality"}, {"95"});
+                    pixbuf.savev(final_out_path, "jpeg", {"quality", null}, {"95", null});
                 } else if (format == "png") {
-                    pixbuf.savev(out_path, "png", {}, {});
+                    pixbuf.savev(final_out_path, "png", null, null);
                 } else if (format == "webp") {
-                    pixbuf.savev(out_path, "webp", {"quality"}, {"95"});
+                    pixbuf.savev(final_out_path, "webp", {"quality", null}, {"95", null});
                 } else if (format == "tiff") {
-                    pixbuf.savev(out_path, "tiff", {"compression"}, {"1"});
+                    pixbuf.savev(final_out_path, "tiff", {"compression", null}, {"1", null});
                 } else {
                     // Default to JPEG if format is unknown
-                    pixbuf.savev(out_path, "jpeg", {"quality"}, {"95"});
+                    pixbuf.savev(final_out_path, "jpeg", {"quality", null}, {"95", null});
                 }
 
                 return true;
@@ -504,6 +508,43 @@ public class Window : Adw.ApplicationWindow {
                 warning("Save failed: %s", e.message);
                 return false;
             }
+        }
+
+        private string ensure_extension(string path, string format) {
+            // Get the expected extension for this format
+            string expected_ext = "";
+            switch (format) {
+                case "jpeg":
+                    expected_ext = ".jpg";
+                    break;
+                case "png":
+                    expected_ext = ".png";
+                    break;
+                case "webp":
+                    expected_ext = ".webp";
+                    break;
+                case "tiff":
+                    expected_ext = ".tiff";
+                    break;
+                default:
+                    expected_ext = ".jpg";
+                    break;
+            }
+
+            // Check if path already has correct extension
+            var lower = path.down();
+            if (format == "jpeg" && (lower.has_suffix(".jpg") || lower.has_suffix(".jpeg"))) {
+                return path;
+            } else if (format == "png" && lower.has_suffix(".png")) {
+                return path;
+            } else if (format == "webp" && lower.has_suffix(".webp")) {
+                return path;
+            } else if (format == "tiff" && (lower.has_suffix(".tif") || lower.has_suffix(".tiff"))) {
+                return path;
+            }
+
+            // Path doesn't have correct extension, add it
+            return path + expected_ext;
         }
 
         private static string infer_image_type(string path) {

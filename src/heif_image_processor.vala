@@ -67,10 +67,10 @@ namespace Scramble {
                 string[]? option_keys = null;
                 string[]? option_values = null;
 
-                // Set quality for lossy formats
+                // Set quality for lossy formats with properly null-terminated arrays
                 if (QualitySettings.is_lossy_format(output_format)) {
-                    option_keys = {"quality"};
-                    option_values = {quality.to_string()};
+                    option_keys = {"quality", null};
+                    option_values = {quality.to_string(), null};
                 }
 
                 // Save the pixbuf (this strips metadata automatically)
