@@ -49,7 +49,9 @@
       "Read(//home/tobagin/**)",
       "Bash(awk:*)",
       "Bash(git rm:*)",
-      "Bash(timeout 10 tail:*)"
+      "Bash(timeout 10 tail:*)",
+      "Bash(tee:*)",
+      "Read(//tmp/**)"
     ],
     "deny": []
   }

@@ -110,9 +110,12 @@ public class Window : Adw.ApplicationWindow {
         }
 
         private void on_open_file_clicked() {
-            var dlg = new Gtk.FileChooserNative(_("Open Image File"), this, Gtk.FileChooserAction.OPEN, _("_Open"), _("_Cancel"));
+            var dlg = new Gtk.FileDialog();
+            dlg.title = _("Open Image File");
 
             // Add file filters for supported formats
+            var filters = new GLib.ListStore(typeof(Gtk.FileFilter));
+
             var f_images = new Gtk.FileFilter();
             f_images.name = _("Image Files");
             f_images.add_mime_type("image/jpeg");
@@ -129,26 +132,29 @@ public class Window : Adw.ApplicationWindow {
             f_images.add_pattern("*.tiff");
             f_images.add_pattern("*.heif");
             f_images.add_pattern("*.heic");
-            dlg.add_filter(f_images);
+            filters.append(f_images);
 
             var f_all = new Gtk.FileFilter();
             f_all.name = _("All Files");
             f_all.add_pattern("*");
-            dlg.add_filter(f_all);
+            filters.append(f_all);
 
-            dlg.response.connect((res) => {
-                if (res == Gtk.ResponseType.ACCEPT) {
-                    var file = dlg.get_file();
-                    string? path = file?.get_path();
+            dlg.filters = filters;
+            dlg.default_filter = f_images;
+
+            dlg.open.begin(this, null, (obj, res) => {
+                try {
+                    var file = dlg.open.end(res);
+                    string? path = file.get_path();
                     if (path != null && ImageOperations.is_supported_format(path)) {
                         load_image(path);
                     } else if (path != null) {
                         show_error_toast(_("Unsupported file format. Please use JPEG, PNG, TIFF, or WebP files."));
                     }
+                } catch (Error e) {
+                    // User cancelled or error occurred - silently ignore
                 }
-                dlg.destroy();
             });
-            dlg.show();
         }
 
         private void load_image(string path) {
@@ -206,7 +212,8 @@ public class Window : Adw.ApplicationWindow {
             if (current_image_path == null)
                 return;
 
-            var dlg = new Gtk.FileChooserNative(_("Save Clean Image"), this, Gtk.FileChooserAction.SAVE, _("_Save"), _("_Cancel"));
+            var dlg = new Gtk.FileDialog();
+            dlg.title = _("Save Clean Image");
 
             // Default name
             var basename = GLib.Path.get_basename(current_image_path);
@@ -217,34 +224,36 @@ public class Window : Adw.ApplicationWindow {
                 name = basename.substring(0, dot);
                 ext = basename.substring(dot);
             }
-            dlg.set_current_name("%s_clean%s".printf(name, ext));
+            dlg.initial_name = "%s_clean%s".printf(name, ext);
 
             // Filters
+            var filters = new GLib.ListStore(typeof(Gtk.FileFilter));
+
             var f_jpeg = new Gtk.FileFilter();
             f_jpeg.name = _("JPEG Images");
             f_jpeg.add_mime_type("image/jpeg");
             f_jpeg.add_pattern("*.jpg");
             f_jpeg.add_pattern("*.jpeg");
-            dlg.add_filter(f_jpeg);
+            filters.append(f_jpeg);
 
             var f_png = new Gtk.FileFilter();
             f_png.name = _("PNG Images");
             f_png.add_mime_type("image/png");
             f_png.add_pattern("*.png");
-            dlg.add_filter(f_png);
+            filters.append(f_png);
 
             var f_webp = new Gtk.FileFilter();
             f_webp.name = _("WebP Images");
             f_webp.add_mime_type("image/webp");
             f_webp.add_pattern("*.webp");
-            dlg.add_filter(f_webp);
+            filters.append(f_webp);
 
             var f_tiff = new Gtk.FileFilter();
             f_tiff.name = _("TIFF Images");
             f_tiff.add_mime_type("image/tiff");
             f_tiff.add_pattern("*.tif");
             f_tiff.add_pattern("*.tiff");
-            dlg.add_filter(f_tiff);
+            filters.append(f_tiff);
 
             var f_heif = new Gtk.FileFilter();
             f_heif.name = _("HEIF/HEIC Images");
@@ -252,21 +261,23 @@ public class Window : Adw.ApplicationWindow {
             f_heif.add_mime_type("image/heic");
             f_heif.add_pattern("*.heif");
             f_heif.add_pattern("*.heic");
-            dlg.add_filter(f_heif);
+            filters.append(f_heif);
 
-            dlg.response.connect((res) => {
-                if (res == Gtk.ResponseType.ACCEPT) {
-                    var out = dlg.get_file();
-                    string? out_path = out?.get_path();
+            dlg.filters = filters;
+
+            dlg.save.begin(this, null, (obj, res) => {
+                try {
+                    var out = dlg.save.end(res);
+                    string? out_path = out.get_path();
                     if (out_path != null && ImageOperations.save_clean_copy(current_image_path, out_path)) {
                         show_success_toast(_("Clean image saved to %s").printf(GLib.Path.get_basename(out_path)));
                     } else {
                         show_error_toast(_("Failed to save clean image"));
                     }
+                } catch (Error e) {
+                    // User cancelled or error occurred - silently ignore
                 }
-                dlg.destroy();
             });
-            dlg.show();
         }
 
         private void show_error_toast(string msg) {

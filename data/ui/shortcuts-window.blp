@@ -28,35 +28,17 @@ template $ScrambleShortcutsWindow : Adw.Dialog {
 
           Adw.ActionRow {
             title: _("Open Image");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>o";
-              disabled-text: "";
-              valign: center;
-            }
+            subtitle: "Ctrl+O";
           }
 
           Adw.ActionRow {
             title: _("Clear Image");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary><Shift>c";
-              disabled-text: "";
-              valign: center;
-            }
+            subtitle: "Ctrl+Shift+C";
           }
 
           Adw.ActionRow {
             title: _("Save Clean Copy");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>s";
-              disabled-text: "";
-              valign: center;
-            }
+            subtitle: "Ctrl+S";
           }
         }
 
@@ -66,35 +48,17 @@ template $ScrambleShortcutsWindow : Adw.Dialog {
 
           Adw.ActionRow {
             title: _("Preferences");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>comma";
-              disabled-text: "";
-              valign: center;
-            }
+            subtitle: "Ctrl+,";
           }
 
           Adw.ActionRow {
             title: _("Keyboard Shortcuts");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>question";
-              disabled-text: "";
-              valign: center;
-            }
+            subtitle: "Ctrl+?";
           }
 
           Adw.ActionRow {
             title: _("Quit Application");
-
-            [suffix]
-            Gtk.ShortcutLabel {
-              accelerator: "<Primary>q";
-              disabled-text: "";
-              valign: center;
-            }
+            subtitle: "Ctrl+Q";
           }
         }
       };

@@ -86,14 +86,8 @@ namespace Scramble {
                 throw new FileError.NOENT(_("Output directory does not exist"));
             }
 
-            // Check if we can write to the directory
-            try {
-                var parent_info = parent.query_info("access::can-write", FileQueryInfoFlags.NONE);
-                // Note: We can't directly check can-write via standard attributes
-                // Instead, we'll let the save operation fail naturally if no permission
-            } catch (Error e) {
-                warning("Cannot query parent directory: %s", e.message);
-            }
+            // Note: Write permission check would require platform-specific code
+            // We'll let the save operation fail naturally if no permission
         }
 
         /**

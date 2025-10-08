@@ -176,36 +176,48 @@ namespace Scramble {
             var tag_count = 0;
 
             // Add EXIF tags
-            var exif_tags = metadata.get_exif_tags();
-            foreach (var tag in exif_tags) {
-                var value = metadata.get_tag_string(tag);
-                if (value != null && value.strip() != "") {
-                    var raw_row = new MetadataRow(tag, value.strip());
-                    raw_metadata_row.add_row(raw_row);
-                    tag_count++;
+            try {
+                var exif_tags = metadata.get_exif_tags();
+                foreach (var tag in exif_tags) {
+                    var value = metadata.get_tag_string(tag);
+                    if (value != null && value.strip() != "") {
+                        var raw_row = new MetadataRow(tag, value.strip());
+                        raw_metadata_row.add_row(raw_row);
+                        tag_count++;
+                    }
                 }
+            } catch (Error e) {
+                warning("Error reading EXIF tags: %s", e.message);
             }
 
             // Add XMP tags
-            var xmp_tags = metadata.get_xmp_tags();
-            foreach (var tag in xmp_tags) {
-                var value = metadata.get_tag_string(tag);
-                if (value != null && value.strip() != "") {
-                    var raw_row = new MetadataRow(tag, value.strip());
-                    raw_metadata_row.add_row(raw_row);
-                    tag_count++;
+            try {
+                var xmp_tags = metadata.get_xmp_tags();
+                foreach (var tag in xmp_tags) {
+                    var value = metadata.get_tag_string(tag);
+                    if (value != null && value.strip() != "") {
+                        var raw_row = new MetadataRow(tag, value.strip());
+                        raw_metadata_row.add_row(raw_row);
+                        tag_count++;
+                    }
                 }
+            } catch (Error e) {
+                warning("Error reading XMP tags: %s", e.message);
             }
 
             // Add IPTC tags
-            var iptc_tags = metadata.get_iptc_tags();
-            foreach (var tag in iptc_tags) {
-                var value = metadata.get_tag_string(tag);
-                if (value != null && value.strip() != "") {
-                    var raw_row = new MetadataRow(tag, value.strip());
-                    raw_metadata_row.add_row(raw_row);
-                    tag_count++;
+            try {
+                var iptc_tags = metadata.get_iptc_tags();
+                foreach (var tag in iptc_tags) {
+                    var value = metadata.get_tag_string(tag);
+                    if (value != null && value.strip() != "") {
+                        var raw_row = new MetadataRow(tag, value.strip());
+                        raw_metadata_row.add_row(raw_row);
+                        tag_count++;
+                    }
                 }
+            } catch (Error e) {
+                warning("Error reading IPTC tags: %s", e.message);
             }
 
             // Update subtitle and enable expansion if there are items

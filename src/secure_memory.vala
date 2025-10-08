@@ -16,19 +16,14 @@ namespace Scramble {
                 return;
             }
 
-            try {
-                // Get pixel data
-                unowned uint8[] pixels = pixbuf.get_pixels_with_length();
+            // Get pixel data
+            unowned uint8[] pixels = pixbuf.get_pixels_with_length();
 
-                // Overwrite with zeros (multiple passes for security)
-                for (int pass = 0; pass < 3; pass++) {
-                    for (int i = 0; i < pixels.length; i++) {
-                        pixels[i] = (uint8)(pass == 0 ? 0 : (pass == 1 ? 0xFF : 0));
-                    }
+            // Overwrite with zeros (multiple passes for security)
+            for (int pass = 0; pass < 3; pass++) {
+                for (int i = 0; i < pixels.length; i++) {
+                    pixels[i] = (uint8)(pass == 0 ? 0 : (pass == 1 ? 0xFF : 0));
                 }
-
-            } catch (Error e) {
-                warning("Failed to securely clear pixbuf: %s", e.message);
             }
         }
 
