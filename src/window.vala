@@ -378,37 +378,26 @@ public class Window : Adw.ApplicationWindow {
         private void process_batch(List<string> paths, string output_dir) {
             show_success_toast(_("Processing %d images...").printf((int)paths.length()));
 
-            // Process in a separate thread to avoid blocking UI
-            new Thread<void*>(null, () => {
-                var results = BatchProcessor.process_batch(paths, output_dir, (current, total, filename) => {
-                    // Update progress on main thread
-                    GLib.Idle.add(() => {
-                        show_success_toast(_("Processing %d/%d: %s").printf(current, total, filename));
-                        return false;
-                    });
-                });
-
-                // Show final report on main thread
-                int success_count, failed_count;
-                BatchProcessor.get_summary(results, out success_count, out failed_count);
-
-                GLib.Idle.add(() => {
-                    if (failed_count == 0) {
-                        show_success_toast(_("Successfully processed %d images!").printf(success_count));
-                    } else {
-                        show_error_toast(_("Processed %d images (%d failed)").printf(success_count, failed_count));
-
-                        // Show detailed report in a dialog
-                        var report_dialog = new Adw.AlertDialog(_("Batch Processing Complete"), BatchProcessor.generate_report(results));
-                        report_dialog.add_response("ok", _("OK"));
-                        report_dialog.default_response = "ok";
-                        report_dialog.present(this);
-                    }
-                    return false;
-                });
-
-                return null;
+            // Process on main thread - GdkPixbuf is not thread-safe
+            var results = BatchProcessor.process_batch(paths, output_dir, (current, total, filename) => {
+                show_success_toast(_("Processing %d/%d: %s").printf(current, total, filename));
             });
+
+            // Show final report
+            int success_count, failed_count;
+            BatchProcessor.get_summary(results, out success_count, out failed_count);
+
+            if (failed_count == 0) {
+                show_success_toast(_("Successfully processed %d images!").printf(success_count));
+            } else {
+                show_error_toast(_("Processed %d images (%d failed)").printf(success_count, failed_count));
+
+                // Show detailed report in a dialog
+                var report_dialog = new Adw.AlertDialog(_("Batch Processing Complete"), BatchProcessor.generate_report(results));
+                report_dialog.add_response("ok", _("OK"));
+                report_dialog.default_response = "ok";
+                report_dialog.present(this);
+            }
         }
 
         private void on_export_metadata_clicked() {
