@@ -29,12 +29,19 @@ namespace Scramble {
          */
         public static bool save_clean_copy(string in_path, string out_path) {
             try {
-                // Validate paths
+                debug("save_clean_copy: input=%s, output=%s", in_path, out_path);
+
+                // Validate input path
                 FileValidator.validate_path(in_path);
+
+                // Validate output path (basic checks only - don't check file size)
                 FileValidator.validate_output_path(out_path);
+
+                debug("Validation passed, loading image...");
 
                 // Load the image using GdkPixbuf to strip metadata
                 var pixbuf = new Gdk.Pixbuf.from_file(in_path);
+                debug("Image loaded: %dx%d", pixbuf.get_width(), pixbuf.get_height());
 
                 // Determine output format from file extension
                 string format = infer_image_type(out_path);
@@ -42,19 +49,28 @@ namespace Scramble {
                 // Ensure output path has correct extension
                 string final_out_path = ensure_extension(out_path, format);
 
-                // Save without any metadata
+                // Save without any metadata using GFile for Flatpak portal compatibility
+                debug("Saving as %s to: %s", format, final_out_path);
+
+                // Use GFile-based save for portal compatibility
+                var out_file = GLib.File.new_for_path(final_out_path);
+                var output_stream = out_file.replace(null, false, GLib.FileCreateFlags.NONE);
+
                 if (format == "jpeg") {
-                    pixbuf.savev(final_out_path, "jpeg", {"quality", null}, {"95", null});
+                    pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
                 } else if (format == "png") {
-                    pixbuf.savev(final_out_path, "png", null, null);
+                    pixbuf.save_to_streamv(output_stream, "png", null, null);
                 } else if (format == "webp") {
-                    pixbuf.savev(final_out_path, "webp", {"quality", null}, {"95", null});
+                    pixbuf.save_to_streamv(output_stream, "webp", {"quality"}, {"95"});
                 } else if (format == "tiff") {
-                    pixbuf.savev(final_out_path, "tiff", {"compression", null}, {"1", null});
+                    pixbuf.save_to_streamv(output_stream, "tiff", {"compression"}, {"1"});
                 } else {
                     // Default to JPEG if format is unknown
-                    pixbuf.savev(final_out_path, "jpeg", {"quality", null}, {"95", null});
+                    pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
                 }
+
+                output_stream.close();
+                debug("Save completed successfully");
 
                 // Secure memory clearing if enabled
                 var settings = new GLib.Settings(Config.APP_ID);
