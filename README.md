@@ -18,7 +18,7 @@ Scramble is a modern, privacy-focused utility for viewing and removing metadata 
 - **Keyboard Shortcuts**: Full keyboard navigation with comprehensive shortcuts for all actions
 - **Non-Destructive Workflow**: Original files are never modified
 - **Privacy-First Design**: Completely offline operation with no data collection
-- **Multiple Format Support**: Read HEIF/HEIC/TIFF/WebP, output to JPEG/PNG
+- **Multiple Format Support**: Read HEIF/HEIC/TIFF/WebP, output to JPEG/PNG/WebP
 - **Version Updates**: Automatic "What's New" dialog with release notes
 
 ![Metadata Inspection](data/screenshots/image-with-metadata.png)
@@ -136,11 +136,11 @@ The build script automatically:
 ### Output Formats (Save Clean)
 - **JPEG** - High quality (95%) compression
 - **PNG** - Lossless compression
+- **WebP** - High quality (95%) compression with modern efficiency
 
 **Note**: Due to GdkPixbuf limitations with the portal file API:
-- HEIF/HEIC files are converted to JPEG or PNG
+- HEIF/HEIC files are converted to JPEG, PNG, or WebP
 - TIFF files requested for output are automatically converted to PNG (lossless)
-- WebP files requested for output are automatically converted to PNG (lossless)
 
 This ensures maximum compatibility while preserving image quality across all platforms.
 
