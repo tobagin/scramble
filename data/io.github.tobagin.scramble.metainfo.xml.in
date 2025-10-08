@@ -64,6 +64,40 @@
   </provides>
   
   <releases>
+    <release version="1.2.0" date="2025-10-08">
+      <description>
+        <p>🚀 Major Feature Release - Enhanced Workflow &amp; Batch Operations</p>
+        <p>New Features:</p>
+        <ul>
+          <li>Batch Processing (Ctrl+B) - Process multiple images at once with progress tracking and detailed reports</li>
+          <li>Before/After Comparison View (Ctrl+R) - Side-by-side preview with adjustable split pane</li>
+          <li>Metadata Export (Ctrl+E) - Export metadata to JSON (grouped) or CSV (tabular) formats</li>
+          <li>Modern shortcuts dialog using Adw.ShortcutsDialog with automatic accelerator display</li>
+        </ul>
+        <p>Critical Bug Fixes:</p>
+        <ul>
+          <li>Fixed 0-byte file save bug in Flatpak by implementing GFile-based portal operations</li>
+          <li>Fixed batch processing crashes by removing unsafe threading (GdkPixbuf thread-safety)</li>
+          <li>Fixed TIFF save failure - now auto-converts to PNG (lossless)</li>
+          <li>Restored WebP output support with high-quality compression</li>
+        </ul>
+        <p>Code Quality Improvements:</p>
+        <ul>
+          <li>Resolved 49 deprecated API warnings - migrated to modern GTK4/LibAdwaita APIs</li>
+          <li>Removed 1,700+ lines of duplicate HEIF implementation code</li>
+          <li>Split window.vala (579→278 lines) into 4 modular components</li>
+          <li>Added comprehensive input validation and security checks</li>
+          <li>Implemented secure memory clearing for sensitive data</li>
+        </ul>
+        <p>Technical Details:</p>
+        <ul>
+          <li>All file operations now use GFile API for Flatpak portal compatibility</li>
+          <li>Output formats: JPEG (95% quality), PNG (lossless), WebP (95% quality)</li>
+          <li>TIFF and HEIF/HEIC inputs automatically convert to supported output formats</li>
+          <li>Enhanced error handling with sanitized user-facing messages</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.1.2" date="2025-09-18">
       <description>
         <p>🐛 Bug Fixes and Improvements</p>
