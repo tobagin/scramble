@@ -1,63 +1,57 @@
 using Gtk 4.0;
+using Adw 1;
 
-Gtk.ShortcutsWindow shortcuts_window {
-  modal: true;
+Adw.ShortcutsDialog shortcuts_window {
+  Adw.ShortcutsSection {
+    title: _("General");
 
-  Gtk.ShortcutsSection {
-    section-name: "shortcuts";
-    max-height: 10;
-
-    Gtk.ShortcutsGroup {
-      title: _("General");
-
-      Gtk.ShortcutsShortcut {
-        title: _("Open Image");
-        action-name: "win.open";
-      }
-
-      Gtk.ShortcutsShortcut {
-        title: _("Save Clean Copy");
-        action-name: "win.save";
-      }
-
-      Gtk.ShortcutsShortcut {
-        title: _("Clear Image");
-        action-name: "win.clear";
-      }
-
-      Gtk.ShortcutsShortcut {
-        title: _("Compare Before/After");
-        action-name: "win.compare";
-      }
-
-      Gtk.ShortcutsShortcut {
-        title: _("Batch Process");
-        action-name: "win.batch-process";
-      }
-
-      Gtk.ShortcutsShortcut {
-        title: _("Export Metadata");
-        action-name: "win.export-metadata";
-      }
+    Adw.ShortcutsItem {
+      title: _("Open Image");
+      action-name: "win.open";
     }
 
-    Gtk.ShortcutsGroup {
-      title: _("Application");
+    Adw.ShortcutsItem {
+      title: _("Save Clean Copy");
+      action-name: "win.save";
+    }
 
-      Gtk.ShortcutsShortcut {
-        title: _("Preferences");
-        action-name: "app.preferences";
-      }
+    Adw.ShortcutsItem {
+      title: _("Clear Image");
+      action-name: "win.clear";
+    }
 
-      Gtk.ShortcutsShortcut {
-        title: _("Keyboard Shortcuts");
-        action-name: "win.show-shortcuts";
-      }
+    Adw.ShortcutsItem {
+      title: _("Compare Before/After");
+      action-name: "win.compare";
+    }
 
-      Gtk.ShortcutsShortcut {
-        title: _("Quit");
-        action-name: "app.quit";
-      }
+    Adw.ShortcutsItem {
+      title: _("Batch Process");
+      action-name: "win.batch-process";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Export Metadata");
+      action-name: "win.export-metadata";
+    }
+  }
+
+  Adw.ShortcutsSection {
+    title: _("Application");
+
+    Adw.ShortcutsItem {
+      title: _("Preferences");
+      action-name: "app.preferences";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Keyboard Shortcuts");
+      action-name: "win.show-shortcuts";
+    }
+
+    Adw.ShortcutsItem {
+      title: _("Quit");
+      action-name: "app.quit";
     }
   }
 }

@@ -1,8 +1,9 @@
 using Gtk;
+using Adw;
 
 namespace Scramble {
     /**
-     * Creates and shows a keyboard shortcuts window using Builder
+     * Creates and shows a keyboard shortcuts dialog using Builder
      */
     public class ShortcutsWindow : Object {
 
@@ -15,13 +16,12 @@ namespace Scramble {
 #else
                 builder.add_from_resource("/io/github/tobagin/scramble/shortcuts-window.ui");
 #endif
-                var shortcuts_window = builder.get_object("shortcuts_window") as Gtk.ShortcutsWindow;
-                if (shortcuts_window != null) {
-                    shortcuts_window.set_transient_for(parent);
-                    shortcuts_window.present();
+                var shortcuts_dialog = builder.get_object("shortcuts_window") as Adw.ShortcutsDialog;
+                if (shortcuts_dialog != null) {
+                    shortcuts_dialog.present(parent);
                 }
             } catch (Error e) {
-                warning("Failed to load shortcuts window: %s", e.message);
+                warning("Failed to load shortcuts dialog: %s", e.message);
             }
         }
     }
