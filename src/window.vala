@@ -81,6 +81,12 @@ public class Window : Adw.ApplicationWindow {
             batch_action.activate.connect(() => on_batch_process_clicked());
             this.add_action(batch_action);
 
+            var export_action = new GLib.SimpleAction("export-metadata", null);
+            export_action.activate.connect(() => {
+                if (current_image_path != null) on_export_metadata_clicked();
+            });
+            this.add_action(export_action);
+
             // Setup keyboard accelerators
             var app = this.application as Adw.Application;
             if (app != null) {
@@ -88,6 +94,7 @@ public class Window : Adw.ApplicationWindow {
                 app.set_accels_for_action("win.clear", {"<Primary><Shift>c"});
                 app.set_accels_for_action("win.save", {"<Primary>s"});
                 app.set_accels_for_action("win.batch-process", {"<Primary>b"});
+                app.set_accels_for_action("win.export-metadata", {"<Primary>e"});
                 app.set_accels_for_action("win.show-shortcuts", {"<Primary>question"});
             }
         }
@@ -394,6 +401,85 @@ public class Window : Adw.ApplicationWindow {
                 });
 
                 return null;
+            });
+        }
+
+        private void on_export_metadata_clicked() {
+            if (current_image_path == null)
+                return;
+
+            // Show format selection dialog
+            var format_dialog = new Adw.AlertDialog(
+                _("Export Metadata"),
+                _("Choose the export format for metadata:")
+            );
+            format_dialog.add_response("json", _("JSON"));
+            format_dialog.add_response("csv", _("CSV"));
+            format_dialog.add_response("cancel", _("Cancel"));
+            format_dialog.default_response = "json";
+            format_dialog.close_response = "cancel";
+
+            format_dialog.response.connect((response_id) => {
+                if (response_id == "json" || response_id == "csv") {
+                    export_metadata_with_format(response_id);
+                }
+            });
+
+            format_dialog.present(this);
+        }
+
+        private void export_metadata_with_format(string format_name) {
+            if (current_image_path == null)
+                return;
+
+            var dlg = new Gtk.FileDialog();
+            dlg.title = _("Export Metadata");
+
+            // Default name
+            var basename = GLib.Path.get_basename(current_image_path);
+            var dot = basename.last_index_of(".");
+            string name = basename;
+            if (dot > 0) {
+                name = basename.substring(0, dot);
+            }
+            dlg.initial_name = "%s_metadata.%s".printf(name, format_name);
+
+            // Filters
+            var filters = new GLib.ListStore(typeof(Gtk.FileFilter));
+
+            var filter = new Gtk.FileFilter();
+            if (format_name == "json") {
+                filter.name = _("JSON Files");
+                filter.add_mime_type("application/json");
+                filter.add_pattern("*.json");
+            } else if (format_name == "csv") {
+                filter.name = _("CSV Files");
+                filter.add_mime_type("text/csv");
+                filter.add_pattern("*.csv");
+            }
+            filters.append(filter);
+
+            dlg.filters = filters;
+
+            dlg.save.begin(this, null, (obj, res) => {
+                try {
+                    var out = dlg.save.end(res);
+                    string? out_path = out.get_path();
+
+                    if (out_path != null) {
+                        var format = format_name == "json" ?
+                            MetadataExporter.ExportFormat.JSON :
+                            MetadataExporter.ExportFormat.CSV;
+
+                        if (MetadataExporter.export_to_file(current_image_path, out_path, format)) {
+                            show_success_toast(_("Metadata exported to %s").printf(GLib.Path.get_basename(out_path)));
+                        } else {
+                            show_error_toast(_("Failed to export metadata"));
+                        }
+                    }
+                } catch (Error e) {
+                    debug("Export cancelled or error: %s", e.message);
+                }
             });
         }
 

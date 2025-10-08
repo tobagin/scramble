@@ -14,6 +14,7 @@ srcs = [
   'file_validator.vala',
   'secure_memory.vala',
   'batch_processor.vala',
+  'metadata_exporter.vala',
   'about-dialog.vala',
   'metadata_row.vala',
   'preferences_dialog.vala',
