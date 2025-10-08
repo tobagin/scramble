@@ -86,6 +86,7 @@ namespace Scramble {
                 throw new FileError.NOENT(_("Output directory does not exist"));
             }
 
+            // Note: Don't validate file size for output - Gtk.FileDialog may pre-create empty files
             // Note: Write permission check would require platform-specific code
             // We'll let the save operation fail naturally if no permission
         }

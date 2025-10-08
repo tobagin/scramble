@@ -269,13 +269,22 @@ public class Window : Adw.ApplicationWindow {
                 try {
                     var out = dlg.save.end(res);
                     string? out_path = out.get_path();
-                    if (out_path != null && ImageOperations.save_clean_copy(current_image_path, out_path)) {
-                        show_success_toast(_("Clean image saved to %s").printf(GLib.Path.get_basename(out_path)));
+
+                    if (out_path != null) {
+                        // Debug logging
+                        debug("Saving to path: %s", out_path);
+
+                        if (ImageOperations.save_clean_copy(current_image_path, out_path)) {
+                            show_success_toast(_("Clean image saved to %s").printf(GLib.Path.get_basename(out_path)));
+                        } else {
+                            show_error_toast(_("Failed to save clean image"));
+                        }
                     } else {
-                        show_error_toast(_("Failed to save clean image"));
+                        show_error_toast(_("No output path selected"));
                     }
                 } catch (Error e) {
-                    // User cancelled or error occurred - silently ignore
+                    // User cancelled - silently ignore
+                    debug("Save cancelled or error: %s", e.message);
                 }
             });
         }
