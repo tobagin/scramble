@@ -95,7 +95,12 @@
       "Bash(timeout 180 bash -c 'while ! grep -q \"\"scramble.vala\\|Constants.vala\\|MagicNumberValidator\"\" /tmp/build2.log 2>/dev/null; do sleep 3; done; grep -A 5 -B 2 \"\"scramble.vala\\|Constants.vala\\|MagicNumberValidator\\|Compiling Vala\"\" /tmp/build2.log | head -50')",
       "Bash(timeout 10 flatpak run io.github.tobagin.scramble.Devel --version)",
       "Bash(openspec archive enhance-security-and-validation --yes)",
-      "Bash(openspec show file-format-validation --type spec)"
+      "Bash(openspec show file-format-validation --type spec)",
+      "Bash(timeout 120 bash -c 'while ! grep -q \"\"Build completed\\|finished successfully\\|Installing.*scramble\\|Error:\"\" /tmp/build.log 2>/dev/null; do sleep 2; done; tail -100 /tmp/build.log 2>/dev/null || echo \"\"No build log yet\"\"')",
+      "Bash(timeout 180 bash -c 'while ! grep -q \"\"Build completed\\|finished successfully\\|Installing.*scramble\\|shortcuts_window.ui\"\" /tmp/build_clean.log 2>/dev/null; do sleep 5; done; echo \"\"Build progress:\"\"; grep -A 5 \"\"shortcuts_window.ui\"\" /tmp/build_clean.log || tail -50 /tmp/build_clean.log')",
+      "Bash(timeout 300 bash -c 'while ! grep -q \"\"Building module scramble\\|shortcuts_window.ui\"\" /tmp/build_clean.log 2>/dev/null; do sleep 10; done; grep -A 20 \"\"shortcuts_window.ui\"\" /tmp/build_clean.log | head -30')",
+      "Bash(timeout 300 bash -c 'while ! grep -q \"\"shortcuts_window.ui\"\" /tmp/build_final.log 2>/dev/null; do sleep 10; done; grep -B 2 -A 10 \"\"shortcuts_window.ui\"\" /tmp/build_final.log')",
+      "Bash(timeout 180 bash -c 'while ! grep -q \"\"shortcuts_window.ui\"\" /tmp/build_shortcuts_fix.log 2>/dev/null; do sleep 5; done; grep -B 2 -A 15 \"\"shortcuts_window.ui\"\" /tmp/build_shortcuts_fix.log')"
     ],
     "deny": []
   }

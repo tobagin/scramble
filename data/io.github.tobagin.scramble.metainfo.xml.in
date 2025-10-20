@@ -64,6 +64,15 @@
   </provides>
   
   <releases>
+    <release version="1.2.2" date="2025-10-20">
+      <description>
+        <p>🐛 Bug Fix Release</p>
+        <ul>
+          <li>Fixed keyboard shortcuts dialog not showing - corrected resource path mismatch</li>
+          <li>Updated shortcuts dialog to use proper Adwaita widget structure (Adw.ShortcutsDialog → Adw.ShortcutsSection → Adw.ShortcutsItem)</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.1" date="2025-10-20">
       <description>
         <p>🔒 Security and Stability Update</p>

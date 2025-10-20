@@ -12,9 +12,9 @@ namespace Scramble {
 
             try {
 #if DEVELOPMENT
-                builder.add_from_resource("/io/github/tobagin/scramble/Devel/shortcuts-window.ui");
+                builder.add_from_resource("/io/github/tobagin/scramble/Devel/shortcuts_window.ui");
 #else
-                builder.add_from_resource("/io/github/tobagin/scramble/shortcuts-window.ui");
+                builder.add_from_resource("/io/github/tobagin/scramble/shortcuts_window.ui");
 #endif
                 var shortcuts_dialog = builder.get_object("shortcuts_window") as Adw.ShortcutsDialog;
                 if (shortcuts_dialog != null) {
