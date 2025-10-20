@@ -65,7 +65,7 @@ blueprints += window_ui
 # Compile metadata_row.blp
 metadata_row_ui = custom_target(
     'metadata_row.ui',
-    input: files('data/ui/metadata_row.blp'),
+    input: files('data/ui/widgets/metadata_row.blp'),
     output: 'metadata_row.ui',
     command: [
         blueprint_compiler,
@@ -80,7 +80,7 @@ blueprints += metadata_row_ui
 # Compile preferences_dialog.blp
 preferences_dialog_ui = custom_target(
     'preferences_dialog.ui',
-    input: files('data/ui/preferences_dialog.blp'),
+    input: files('data/ui/dialogs/preferences_dialog.blp'),
     output: 'preferences_dialog.ui',
     command: [
         blueprint_compiler,
@@ -92,11 +92,11 @@ preferences_dialog_ui = custom_target(
 )
 blueprints += preferences_dialog_ui
 
-# Compile shortcuts-window.blp
+# Compile shortcuts_window.blp
 shortcuts_window_ui = custom_target(
-    'shortcuts-window.ui',
-    input: files('data/ui/shortcuts-window.blp'),
-    output: 'shortcuts-window.ui',
+    'shortcuts_window.ui',
+    input: files('data/ui/dialogs/shortcuts_window.blp'),
+    output: 'shortcuts_window.ui',
     command: [
         blueprint_compiler,
         'compile',
@@ -123,17 +123,7 @@ scramble_gresource = gnome.compile_resources(
     c_name: 'scramble'
 )
 
-# SVG Icons removed
-
-# PNG Icons for all sizes - try simple install_data approach
-icon_sizes = ['16', '32', '48', '64', '128', '256', '512']
-foreach size : icon_sizes
-    install_data(
-        'data/icons/hicolor/' + size + 'x' + size + '/apps/io.github.tobagin.scramble.png',
-        install_dir: get_option('datadir') / 'icons' / 'hicolor' / size + 'x' + size + '/apps',
-        rename: app_id + '.png'
-    )
-endforeach
+# Icon installation handled in data/icons/meson.build
 
 # Subdirectories
 subdir('data')

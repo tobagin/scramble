@@ -65,3 +65,4 @@ endif
 # Subdirectories
 subdir('ui')
 subdir('resources')
+subdir('icons')

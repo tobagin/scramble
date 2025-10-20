@@ -1,9 +1,12 @@
 #!/bin/bash
 
 # Scramble build script
-# Usage: ./build.sh [--dev]
+# Usage: ./scripts/build.sh [--dev]
 
 set -e
+
+# Change to project root directory (script is in scripts/)
+cd "$(dirname "$0")/.."
 
 # Default to production build
 BUILD_TYPE="prod"

@@ -4,6 +4,6 @@
     <file compressed="true">window.ui</file>
     <file compressed="true">metadata_row.ui</file>
     <file compressed="true">preferences_dialog.ui</file>
-    <file compressed="true">shortcuts-window.ui</file>
+    <file compressed="true">shortcuts_window.ui</file>
   </gresource>
 </gresources>

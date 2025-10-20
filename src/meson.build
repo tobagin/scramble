@@ -1,25 +1,25 @@
 # Generate config for runtime paths
 config_vala = configure_file(
-  input: 'config.vala.in',
-  output: 'config.vala',
+  input: 'Config.vala.in',
+  output: 'Config.vala',
   configuration: conf
 )
 
 srcs = [
   config_vala,
-  'main.vala',
-  'window.vala',
-  'metadata_display.vala',
-  'image_operations.vala',
-  'file_validator.vala',
-  'secure_memory.vala',
-  'batch_processor.vala',
-  'metadata_exporter.vala',
-  'comparison_dialog.vala',
-  'about-dialog.vala',
-  'metadata_row.vala',
-  'preferences_dialog.vala',
-  'shortcuts-window.vala',
+  'Main.vala',
+  'Window.vala',
+  'dialogs/AboutDialog.vala',
+  'dialogs/ComparisonDialog.vala',
+  'dialogs/PreferencesDialog.vala',
+  'dialogs/ShortcutsWindow.vala',
+  'widgets/MetadataRow.vala',
+  'core/BatchProcessor.vala',
+  'core/ImageOperations.vala',
+  'core/MetadataDisplay.vala',
+  'core/MetadataExporter.vala',
+  'utils/FileValidator.vala',
+  'utils/SecureMemory.vala',
 ]
 
 deps = [glib_dep, gio_dep, gtk_dep, adw_dep, gdkpixbuf_dep]
