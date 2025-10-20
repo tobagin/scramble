@@ -83,7 +83,11 @@
       "Bash(git mv data/ui/Window.blp data/ui/window.blp)",
       "Bash(git mv data/ui/widgets/MetadataRow.blp data/ui/widgets/metadata_row.blp)",
       "Bash(git mv data/ui/dialogs/PreferencesDialog.blp data/ui/dialogs/preferences_dialog.blp)",
-      "Bash(git mv data/ui/dialogs/ShortcutsWindow.blp data/ui/dialogs/shortcuts_window.blp)"
+      "Bash(git mv data/ui/dialogs/ShortcutsWindow.blp data/ui/dialogs/shortcuts_window.blp)",
+      "Bash(openspec archive refactor-project-structure --yes)",
+      "Bash(openspec validate --strict)",
+      "Bash(openspec list --specs)",
+      "Bash(openspec validate --specs)"
     ],
     "deny": []
   }
