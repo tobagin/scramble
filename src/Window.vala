@@ -180,6 +180,15 @@ public class Window : Adw.ApplicationWindow {
                 // Validate file path for security
                 FileValidator.validate_path(path);
 
+                // Validate format by magic numbers (SEC-003)
+                var ext = ImageOperations.is_supported_format(path) ? get_file_extension(path) : "";
+                if (ext != "") {
+                    if (!MagicNumberValidator.validate_format(path, ext)) {
+                        var error_msg = MagicNumberValidator.get_validation_error_message(path, ext);
+                        throw new FileError.FAILED(error_msg);
+                    }
+                }
+
                 current_image_path = path;
 
                 // Preview
@@ -491,10 +500,37 @@ public class Window : Adw.ApplicationWindow {
             t.timeout = 3;
             toast_overlay.add_toast(t);
         }
+
         private void show_success_toast(string msg) {
             var t = new Adw.Toast(msg);
             t.timeout = 2;
             toast_overlay.add_toast(t);
+        }
+
+        /**
+         * Get file extension from path
+         *
+         * @param path File path
+         * @return File extension (e.g., "jpg", "png") without the dot
+         */
+        private string get_file_extension(string path) {
+            var lower = path.down();
+            if (lower.has_suffix(".jpg")) return "jpg";
+            if (lower.has_suffix(".jpeg")) return "jpeg";
+            if (lower.has_suffix(".png")) return "png";
+            if (lower.has_suffix(".webp")) return "webp";
+            if (lower.has_suffix(".tif")) return "tif";
+            if (lower.has_suffix(".tiff")) return "tiff";
+            if (lower.has_suffix(".heif")) return "heif";
+            if (lower.has_suffix(".heic")) return "heic";
+
+            // Fallback: extract extension after last dot
+            var parts = path.split(".");
+            if (parts.length > 1) {
+                return parts[parts.length - 1].down();
+            }
+
+            return "";
         }
     }
 }

@@ -87,7 +87,13 @@
       "Bash(openspec archive refactor-project-structure --yes)",
       "Bash(openspec validate --strict)",
       "Bash(openspec list --specs)",
-      "Bash(openspec validate --specs)"
+      "Bash(openspec validate --specs)",
+      "Bash(openspec validate enhance-security-and-validation --strict)",
+      "Bash(git checkout -b enhance-security-validation)",
+      "Bash(timeout 60 tail -f /tmp/build.log)",
+      "Bash(timeout 120 bash -c 'while ! grep -q \"\"Build completed\\|finished successfully\\|Installing.*scramble\"\" /tmp/build.log 2>/dev/null; do sleep 2; done; echo \"\"Build finished\"\"; tail -30 /tmp/build.log')",
+      "Bash(timeout 180 bash -c 'while ! grep -q \"\"scramble.vala\\|Constants.vala\\|MagicNumberValidator\"\" /tmp/build2.log 2>/dev/null; do sleep 3; done; grep -A 5 -B 2 \"\"scramble.vala\\|Constants.vala\\|MagicNumberValidator\\|Compiling Vala\"\" /tmp/build2.log | head -50')",
+      "Bash(timeout 10 flatpak run io.github.tobagin.scramble.Devel --version)"
     ],
     "deny": []
   }

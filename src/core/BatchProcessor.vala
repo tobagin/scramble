@@ -67,7 +67,17 @@ namespace Scramble {
 
                 // Process the image
                 try {
+                    // Validate file path
                     FileValidator.validate_path(input_path);
+
+                    // Validate format by magic numbers (SEC-003)
+                    if (ImageOperations.is_supported_format(input_path)) {
+                        var file_ext = get_file_extension(input_path);
+                        if (file_ext != "" && !MagicNumberValidator.validate_format(input_path, file_ext)) {
+                            var error_msg = MagicNumberValidator.get_validation_error_message(input_path, file_ext);
+                            throw new FileError.FAILED(error_msg);
+                        }
+                    }
 
                     // Check if output directory exists
                     var dir = File.new_for_path(output_dir);
@@ -82,7 +92,9 @@ namespace Scramble {
                         results.append(new BatchResult(input_path, output_path, false, _("Save operation failed")));
                     }
                 } catch (Error e) {
-                    results.append(new BatchResult(input_path, output_path, false, e.message));
+                    // Sanitize error message to prevent path disclosure
+                    var safe_msg = FileValidator.sanitize_error_message(e.message);
+                    results.append(new BatchResult(input_path, output_path, false, safe_msg));
                 }
             }
 
@@ -144,6 +156,32 @@ namespace Scramble {
             }
 
             return report.str;
+        }
+
+        /**
+         * Get file extension from path
+         *
+         * @param path File path
+         * @return File extension (e.g., "jpg", "png") without the dot
+         */
+        private static string get_file_extension(string path) {
+            var lower = path.down();
+            if (lower.has_suffix(".jpg")) return "jpg";
+            if (lower.has_suffix(".jpeg")) return "jpeg";
+            if (lower.has_suffix(".png")) return "png";
+            if (lower.has_suffix(".webp")) return "webp";
+            if (lower.has_suffix(".tif")) return "tif";
+            if (lower.has_suffix(".tiff")) return "tiff";
+            if (lower.has_suffix(".heif")) return "heif";
+            if (lower.has_suffix(".heic")) return "heic";
+
+            // Fallback: extract extension after last dot
+            var parts = path.split(".");
+            if (parts.length > 1) {
+                return parts[parts.length - 1].down();
+            }
+
+            return "";
         }
     }
 }

@@ -37,6 +37,14 @@ namespace Scramble {
                 // Validate output path (basic checks only - don't check file size)
                 FileValidator.validate_output_path(out_path);
 
+                // Validate format by magic numbers (SEC-003)
+                var ext = get_file_extension(in_path);
+                if (!MagicNumberValidator.validate_format(in_path, ext)) {
+                    var error_msg = MagicNumberValidator.get_validation_error_message(in_path, ext);
+                    warning("Format validation failed: %s", error_msg);
+                    throw new FileError.FAILED(error_msg);
+                }
+
                 debug("Validation passed, loading image...");
 
                 // Load the image using GdkPixbuf to strip metadata
@@ -149,6 +157,32 @@ namespace Scramble {
             if (lower.has_suffix(".webp")) return "webp";
             if (lower.has_suffix(".tif") || lower.has_suffix(".tiff")) return "tiff";
             return "jpeg";
+        }
+
+        /**
+         * Get file extension from path
+         *
+         * @param path File path
+         * @return File extension (e.g., "jpg", "png") without the dot
+         */
+        private static string get_file_extension(string path) {
+            var lower = path.down();
+            if (lower.has_suffix(".jpg")) return "jpg";
+            if (lower.has_suffix(".jpeg")) return "jpeg";
+            if (lower.has_suffix(".png")) return "png";
+            if (lower.has_suffix(".webp")) return "webp";
+            if (lower.has_suffix(".tif")) return "tif";
+            if (lower.has_suffix(".tiff")) return "tiff";
+            if (lower.has_suffix(".heif")) return "heif";
+            if (lower.has_suffix(".heic")) return "heic";
+
+            // Fallback: extract extension after last dot
+            var parts = path.split(".");
+            if (parts.length > 1) {
+                return parts[parts.length - 1].down();
+            }
+
+            return "";
         }
     }
 }

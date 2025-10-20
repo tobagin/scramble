@@ -38,6 +38,12 @@
       <description>Clear image data from memory after processing</description>
     </key>
 
+    <key name="allow-symlinks-dev" type="b">
+      <default>false</default>
+      <summary>Allow symlinks in development</summary>
+      <description>Development-only setting to allow symbolic links for testing. Ignored in production builds for security.</description>
+    </key>
+
     <!-- Version alert settings -->
     <key name="last-version-shown" type="s">
       <default>""</default>

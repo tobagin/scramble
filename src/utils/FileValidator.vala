@@ -6,9 +6,6 @@ namespace Scramble {
      */
     public class FileValidator : Object {
 
-        // Maximum allowed file size: 500 MB
-        private const int64 MAX_FILE_SIZE = 500 * 1024 * 1024;
-
         /**
          * Validate a file path for security and sanity
          *
@@ -42,15 +39,33 @@ namespace Scramble {
                     throw new FileError.FAILED(_("Path is not a regular file"));
                 }
 
-                // Check for symlinks (security concern)
+                // Check for symlinks (security concern - SEC-001)
                 if (info.get_is_symlink()) {
-                    warning("Symlink detected: %s", path);
-                    // Allow but log - user may have legitimate symlinks
+                    #if DEVELOPMENT
+                        // In development, check if symlinks are allowed via settings
+                        var settings = new GLib.Settings(Config.APP_ID);
+                        if (settings.get_boolean("allow-symlinks-dev")) {
+                            warning("Symlink detected in development mode (allowed): %s", sanitize_for_display(path));
+                            // Resolve symlink and validate target
+                            var real_path = FileUtils.read_link(path);
+                            // If relative path, resolve against parent directory
+                            if (!Path.is_absolute(real_path)) {
+                                var parent = Path.get_dirname(path);
+                                real_path = Path.build_filename(parent, real_path);
+                            }
+                            // Recursively validate the target
+                            validate_path(real_path);
+                            return;
+                        }
+                    #endif
+                    // Production mode or dev mode with setting disabled: reject symlinks
+                    warning("Symlink detected and rejected for security: %s", sanitize_for_display(path));
+                    throw new FileError.FAILED(_("Symbolic links are not supported for security reasons"));
                 }
 
                 // Check file size
                 var size = info.get_size();
-                if (size > MAX_FILE_SIZE) {
+                if (size > Constants.MAX_FILE_SIZE) {
                     throw new FileError.FAILED(_("File too large (max 500 MB)"));
                 }
 
@@ -104,19 +119,40 @@ namespace Scramble {
         /**
          * Get safe error message (no path disclosure)
          *
+         * Uses safe string operations instead of regex to prevent
+         * ReDoS attacks (SEC-002)
+         *
          * @param error_msg Original error message
          * @return Sanitized error message
          */
         public static string sanitize_error_message(string error_msg) {
-            // Remove any absolute paths from error messages
             var sanitized = error_msg;
 
-            // Pattern: /path/to/file or /home/user/...
-            try {
-                var regex = new Regex("(/[a-zA-Z0-9_/.\\-]+)");
-                sanitized = regex.replace(sanitized, -1, 0, "[file]");
-            } catch (RegexError e) {
-                warning("Regex error in sanitization: %s", e.message);
+            // Split by forward slash to detect paths
+            var parts = sanitized.split("/");
+
+            // If we have an absolute path (starts with /)
+            if (parts.length > 1 && sanitized.has_prefix("/")) {
+                // Keep only the descriptive part, replace path with generic placeholder
+                var last_part = parts[parts.length - 1];
+
+                // If the last part looks like a filename, keep context but hide path
+                if (last_part.length > 0 && last_part.contains(".")) {
+                    return _("File error: %s").printf(last_part);
+                } else {
+                    return _("File error: [path hidden]");
+                }
+            }
+
+            // Also check for Windows-style paths (C:\...)
+            if (sanitized.contains(":\\")) {
+                var win_parts = sanitized.split("\\");
+                if (win_parts.length > 0) {
+                    var last = win_parts[win_parts.length - 1];
+                    if (last.length > 0) {
+                        return _("File error: %s").printf(last);
+                    }
+                }
             }
 
             return sanitized;

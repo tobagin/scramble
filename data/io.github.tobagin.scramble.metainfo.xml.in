@@ -64,6 +64,31 @@
   </provides>
   
   <releases>
+    <release version="1.2.1" date="2025-10-20">
+      <description>
+        <p>🔒 Security and Stability Update</p>
+        <p>Security Enhancements:</p>
+        <ul>
+          <li>Enhanced file format validation with magic number checking - prevents processing of malicious files with fake extensions</li>
+          <li>Improved symlink handling to prevent security vulnerabilities (TOCTOU attacks)</li>
+          <li>Replaced regex-based error sanitization to prevent ReDoS attacks</li>
+          <li>Removed unused network permission for better privacy posture</li>
+          <li>Added comprehensive security logging for validation events</li>
+        </ul>
+        <p>New Internal Features:</p>
+        <ul>
+          <li>Magic number validation for JPEG, PNG, WebP, TIFF, HEIF/HEIC formats</li>
+          <li>Development-only setting to allow symlinks for testing purposes</li>
+          <li>New Constants and MagicNumberValidator utility classes</li>
+        </ul>
+        <p>Code Quality:</p>
+        <ul>
+          <li>Improved error messages with path disclosure prevention</li>
+          <li>Enhanced file validation in batch processing</li>
+          <li>Better separation of security concerns across codebase</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.2.0" date="2025-10-08">
       <description>
         <p>🚀 Major Feature Release - Enhanced Workflow &amp; Batch Operations</p>

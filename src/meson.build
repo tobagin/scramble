@@ -18,7 +18,9 @@ srcs = [
   'core/ImageOperations.vala',
   'core/MetadataDisplay.vala',
   'core/MetadataExporter.vala',
+  'utils/Constants.vala',
   'utils/FileValidator.vala',
+  'utils/MagicNumberValidator.vala',
   'utils/SecureMemory.vala',
 ]
 

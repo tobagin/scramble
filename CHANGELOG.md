@@ -7,12 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.2.1] - 2025-10-20
+
+### Security
+- Enhanced file format validation with magic number checking (SEC-003)
+- Improved symlink handling to prevent security vulnerabilities (SEC-001)
+- Replaced regex-based error sanitization to prevent ReDoS attacks (SEC-002)
+- Removed unused network permission for better privacy
+- Added comprehensive security logging for validation events
+
+### Added
+- Magic number validation for all supported image formats (JPEG, PNG, WebP, TIFF, HEIF/HEIC)
+- Development-only setting to allow symlinks for testing
+- Constants utility class for shared format signatures and limits
+- MagicNumberValidator utility class for secure format detection
+
 ### Changed
 - Refactored project structure to align with Vala/GNOME conventions
 - Renamed all Vala source files to PascalCase (matching their class names)
 - Organized source code into logical subdirectories (`dialogs/`, `widgets/`, `core/`, `utils/`)
 - Organized Blueprint UI files into subdirectories (`dialogs/`, `widgets/`)
 - Moved build script to `scripts/build.sh`
+- Improved error messages with path disclosure prevention
+- Enhanced file validation in batch processing
 
 ## [1.2.0] - 2025-10-08
 

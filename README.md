@@ -148,12 +148,15 @@ This ensures maximum compatibility while preserving image quality across all pla
 
 Scramble is designed with privacy as the top priority:
 
-- **No Network Access**: Completely offline operation
+- **No Network Access**: Completely offline operation with no network permission
 - **No Data Collection**: Zero telemetry or analytics
 - **Sandboxed**: Runs in a secure Flatpak environment
 - **Non-Destructive**: Original files are never modified
 - **Secure Memory**: Image data is properly cleaned from memory after processing
 - **Minimal Permissions**: Only requires access to user image directories
+- **Format Validation**: Magic number checking prevents processing of malicious files with fake extensions
+- **Symlink Protection**: Security measures to prevent TOCTOU attacks
+- **Safe Error Handling**: Error messages don't expose sensitive system paths
 
 ## Architecture
 
