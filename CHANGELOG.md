@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.2.1] - 2025-10-20
+## [1.3.0] - 2025-12-12
+
+### Added
+- Support for opening images directly via CLI arguments and "Open With" context menu
 
 ### Security
 - Enhanced file format validation with magic number checking (SEC-003)
