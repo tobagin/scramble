@@ -8,7 +8,7 @@ namespace Scramble {
 
         public Application() {
             Object(application_id: Config.APP_ID,
-                   flags: GLib.ApplicationFlags.FLAGS_NONE);
+                   flags: GLib.ApplicationFlags.HANDLES_OPEN);
         }
 
         protected override void startup() {
@@ -47,6 +47,7 @@ namespace Scramble {
             this.add_action(act_quit);
         }
 
+
         protected override void activate() {
             // Create window if it doesn't exist
             if (main_window == null) {
@@ -59,6 +60,20 @@ namespace Scramble {
                 // Show the existing window (it might be hidden)
                 main_window.set_visible(true);
                 main_window.present();
+            }
+        }
+
+        protected override void open(GLib.File[] files, string hint) {
+            activate();
+
+            // Open the first supported file
+            foreach (var file in files) {
+                string? path = file.get_path();
+                if (path != null) {
+                    main_window.load_image(path);
+                    // We only support opening one file at a time for now
+                    break;
+                }
             }
         }
 

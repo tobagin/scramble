@@ -175,7 +175,7 @@ public class Window : Adw.ApplicationWindow {
             });
         }
 
-        private void load_image(string path) {
+        internal void load_image(string path) {
             try {
                 // Validate file path for security
                 FileValidator.validate_path(path);
