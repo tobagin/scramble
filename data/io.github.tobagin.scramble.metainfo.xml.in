@@ -52,12 +52,14 @@
   <url type="donation">https://github.com/sponsors/tobagin</url>
   <url type="contact">https://github.com/tobagin</url>
   <url type="contribute">https://github.com/tobagin/scramble</url>
+  <url type="vcs-browser">https://github.com/tobagin/scramble</url>
   
   <developer id="io.github.tobagin">
     <name>Thiago Fernandes</name>
   </developer>
   
   <launchable type="desktop-id">@APP_ID@.desktop</launchable>
+   <content_rating type="oars-1.1"/>
 
   <provides>
     <binary>scramble</binary>
@@ -216,20 +218,5 @@
       </description>
     </release>
   </releases>
-  
-  <content_rating type="oars-1.1"/>
-  
-  <categories>
-    <category>Graphics</category>
-    <category>Photography</category>
-    <category>Utility</category>
-  </categories>
-  
-  <keywords>
-    <keyword>metadata</keyword>
-    <keyword>exif</keyword>
-    <keyword>privacy</keyword>
-    <keyword>image</keyword>
-    <keyword>photo</keyword>
-  </keywords>
+    
 </component>
