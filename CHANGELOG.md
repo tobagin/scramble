@@ -7,71 +7,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-01-10
+
+### ✨ New Features
+
+- **Selective Metadata Removal**: Choose which metadata categories to remove (GPS, Camera, DateTime, Software, Author) instead of all-or-nothing.
+- **Metadata Preferences**: New "Metadata Removal" section in Preferences with per-category toggle switches.
+- **New Icons**: Fresh new application icons (Thanks to @oiimrosabel).
+
+### 🔧 Changed
+
+- **Development Icon**: Development builds now use the dedicated `io.github.tobagin.scramble.Devel.svg` icon.
+
 ## [1.3.0] - 2025-12-12
 
-### Added
-- Support for opening images directly via CLI arguments and "Open With" context menu
+### ✨ New Features
 
-### Security
-- Enhanced file format validation with magic number checking (SEC-003)
-- Improved symlink handling to prevent security vulnerabilities (SEC-001)
-- Replaced regex-based error sanitization to prevent ReDoS attacks (SEC-002)
-- Removed unused network permission for better privacy
-- Added comprehensive security logging for validation events
+- **CLI & Context Menu**: Support for opening images directly via CLI arguments and "Open With" context menu.
+- **Magic Number Validation**: Validate all supported image formats (JPEG, PNG, WebP, TIFF, HEIF/HEIC) by their file signatures.
+- **Development Symlinks**: New development-only setting to allow symlinks for testing.
 
-### Added
-- Magic number validation for all supported image formats (JPEG, PNG, WebP, TIFF, HEIF/HEIC)
-- Development-only setting to allow symlinks for testing
-- Constants utility class for shared format signatures and limits
-- MagicNumberValidator utility class for secure format detection
+### 🔒 Security
 
-### Changed
-- Refactored project structure to align with Vala/GNOME conventions
-- Renamed all Vala source files to PascalCase (matching their class names)
-- Organized source code into logical subdirectories (`dialogs/`, `widgets/`, `core/`, `utils/`)
-- Organized Blueprint UI files into subdirectories (`dialogs/`, `widgets/`)
-- Moved build script to `scripts/build.sh`
-- Improved error messages with path disclosure prevention
-- Enhanced file validation in batch processing
+- **Enhanced Format Validation**: Magic number checking prevents processing of malicious files with fake extensions (SEC-003).
+- **Symlink Protection**: Improved symlink handling to prevent TOCTOU attacks (SEC-001).
+- **ReDoS Prevention**: Replaced regex-based error sanitization to prevent ReDoS attacks (SEC-002).
+- **Privacy**: Removed unused network permission.
+
+### 🔧 Changed
+
+- **Project Structure**: Refactored to align with Vala/GNOME conventions (PascalCase files, logical subdirectories).
+- **Error Handling**: Improved error messages with path disclosure prevention.
 
 ## [1.2.0] - 2025-10-08
 
-### Added
-- HEIF/HEIC format support with metadata extraction
-- Batch processing feature for multiple images
-- Before/after comparison dialog view
-- Metadata export functionality (JSON and CSV formats)
-- Keyboard shortcuts window
-- Support for WebP, TIFF image formats
+### ✨ New Features
 
-### Fixed
-- Critical 0-byte file save bug in Flatpak environment
-- Shortcuts dialog implementation (now uses `Gtk.ShortcutsWindow`)
-- TIFF/WebP save failures (automatic PNG conversion for unsupported formats)
-- Batch processing crash caused by threading issues
-- Output path validation and error handling
+- **HEIF/HEIC Support**: Full metadata extraction for Apple's modern image formats.
+- **Batch Processing**: Process multiple images at once with progress tracking and detailed reports.
+- **Comparison View**: Side-by-side before/after comparison dialog.
+- **Metadata Export**: Export metadata to JSON or CSV formats.
+- **Keyboard Shortcuts**: Added shortcuts window with all available actions.
+- **Format Support**: Added WebP and TIFF image format support.
 
-### Changed
-- Improved file format detection and validation
-- Enhanced metadata display with better organization
-- Updated UI for better user experience
+### 🐛 Bug Fixes
+
+- **Critical Save Bug**: Fixed 0-byte file save bug in Flatpak environment.
+- **Shortcuts Dialog**: Now uses proper `Gtk.ShortcutsWindow`.
+- **Format Conversion**: TIFF/WebP save failures now auto-convert to PNG.
+- **Batch Stability**: Fixed batch processing crash caused by threading issues.
+
+### 🔧 Changed
+
+- **Format Detection**: Improved file format detection and validation.
+- **Metadata Display**: Enhanced organization and presentation.
 
 ## [1.1.0] - (Earlier Release)
 
-### Added
-- Initial metadata viewing and removal functionality
-- Support for JPEG and PNG formats
-- Basic GTK4/LibAdwaita interface
+### ✨ New Features
 
-### Changed
-- Improved performance and stability
+- **Metadata Viewing**: Initial metadata viewing and removal functionality.
+- **Format Support**: Support for JPEG and PNG formats.
+- **GTK4 Interface**: Basic GTK4/LibAdwaita interface.
 
 ## [1.0.0] - (Initial Release)
 
-### Added
-- Initial release of Scramble
-- Basic image metadata viewing
-- Metadata removal functionality
-- GTK4/LibAdwaita-based interface
-- GNOME HIG-compliant design
-- Flatpak packaging
+### ✨ New Features
+
+- **Initial Release**: First public release of Scramble.
+- **Core Features**: Image metadata viewing and removal.
+- **Modern UI**: GTK4/LibAdwaita-based interface following GNOME HIG.
+- **Flatpak**: Secure sandboxed distribution via Flatpak.

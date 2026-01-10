@@ -21,6 +21,7 @@ srcs = [
   'utils/Constants.vala',
   'utils/FileValidator.vala',
   'utils/MagicNumberValidator.vala',
+  'utils/MetadataFilter.vala',
   'utils/SecureMemory.vala',
 ]
 

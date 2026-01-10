@@ -66,6 +66,17 @@
   </provides>
   
   <releases>
+    <release version="1.4.0" date="2026-01-10">
+      <description>
+        <p>✨ Selective Metadata Removal &amp; New Icons</p>
+        <ul>
+          <li>Selective Metadata Removal: Choose which metadata categories to remove (GPS, Camera, DateTime, Software, Author) instead of all-or-nothing</li>
+          <li>New Icons: Fresh new application icons (Thanks to @oiimrosabel)</li>
+          <li>Metadata Preferences: New "Metadata Removal" section in Preferences with per-category toggle switches</li>
+          <li>Development Icon: Development builds now use the dedicated Devel icon</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.3.0" date="2025-12-12">
       <description>
         <p>✨ File Opening Support</p>

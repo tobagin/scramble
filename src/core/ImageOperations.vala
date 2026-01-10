@@ -47,68 +47,161 @@ namespace Scramble {
 
                 debug("Validation passed, loading image...");
 
-                // Load the image using GdkPixbuf to strip metadata
-                var pixbuf = new Gdk.Pixbuf.from_file(in_path);
-                debug("Image loaded: %dx%d", pixbuf.get_width(), pixbuf.get_height());
-
+                // Get settings to check metadata removal preferences
+                var settings = new GLib.Settings(Config.APP_ID);
+                
                 // Determine output format from file extension
                 string format = infer_image_type(out_path);
-
+                
                 // Ensure output path has correct extension
                 string final_out_path = ensure_extension(out_path, format);
-
-                // Save without any metadata using GFile for Flatpak portal compatibility
-                debug("Saving as %s to: %s", format, final_out_path);
-
-                // Use GFile-based save for portal compatibility
-                var out_file = GLib.File.new_for_path(final_out_path);
-                var output_stream = out_file.replace(null, false, GLib.FileCreateFlags.NONE);
-
-                // Save with appropriate format
-                if (format == "jpeg") {
-                    debug("Saving as JPEG");
-                    pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
-                } else if (format == "png") {
-                    debug("Saving as PNG");
-                    pixbuf.save_to_streamv(output_stream, "png", null, null);
-                } else if (format == "webp") {
-                    debug("Saving as WebP");
-                    pixbuf.save_to_streamv(output_stream, "webp", {"quality"}, {"95"});
-                } else if (format == "tiff") {
-                    // TIFF not supported with save_to_streamv, convert to PNG (lossless)
-                    warning("TIFF format not supported with portals, converting to PNG");
-                    output_stream.close();
-
-                    // Change extension to .png
-                    var png_path = final_out_path.replace(".tiff", ".png").replace(".tif", ".png");
-
-                    var png_file = GLib.File.new_for_path(png_path);
-                    var png_stream = png_file.replace(null, false, GLib.FileCreateFlags.NONE);
-                    pixbuf.save_to_streamv(png_stream, "png", null, null);
-                    png_stream.close();
-                    debug("Saved as PNG: %s", png_path);
-                    return true;
-                } else {
-                    // Default to JPEG if format is unknown
-                    debug("Unknown format, defaulting to JPEG");
-                    pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
+                
+#if HAVE_GEXIV2
+                // Check if we need selective metadata removal
+                if (!MetadataFilter.is_remove_all(settings)) {
+                    // Use GExiv2-based approach for selective removal
+                    return save_with_selective_metadata(in_path, final_out_path, format, settings);
                 }
-
-                output_stream.close();
-                debug("Save completed successfully");
-
-                // Secure memory clearing if enabled
-                var settings = new GLib.Settings(Config.APP_ID);
-                if (SecureMemory.is_enabled(settings)) {
-                    SecureMemory.clear_pixbuf(pixbuf);
-                }
-
-                return true;
+#endif
+                
+                // Default: Use GdkPixbuf approach to strip ALL metadata (fastest)
+                return save_stripped(in_path, final_out_path, format, settings);
+                
             } catch (Error e) {
                 warning("Save failed: %s", e.message);
                 return false;
             }
         }
+        
+        /**
+         * Save image with all metadata stripped using GdkPixbuf
+         * This is the fastest approach when removing all metadata
+         */
+        private static bool save_stripped(string in_path, string out_path, string format, GLib.Settings settings) throws Error {
+            // Load the image using GdkPixbuf to strip metadata
+            var pixbuf = new Gdk.Pixbuf.from_file(in_path);
+            debug("Image loaded: %dx%d", pixbuf.get_width(), pixbuf.get_height());
+
+            // Save without any metadata using GFile for Flatpak portal compatibility
+            debug("Saving as %s to: %s", format, out_path);
+
+            // Use GFile-based save for portal compatibility
+            var out_file = GLib.File.new_for_path(out_path);
+            var output_stream = out_file.replace(null, false, GLib.FileCreateFlags.NONE);
+
+            // Save with appropriate format
+            if (format == "jpeg") {
+                debug("Saving as JPEG");
+                pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
+            } else if (format == "png") {
+                debug("Saving as PNG");
+                pixbuf.save_to_streamv(output_stream, "png", null, null);
+            } else if (format == "webp") {
+                debug("Saving as WebP");
+                pixbuf.save_to_streamv(output_stream, "webp", {"quality"}, {"95"});
+            } else if (format == "tiff") {
+                // TIFF not supported with save_to_streamv, convert to PNG (lossless)
+                warning("TIFF format not supported with portals, converting to PNG");
+                output_stream.close();
+
+                // Change extension to .png
+                var png_path = out_path.replace(".tiff", ".png").replace(".tif", ".png");
+
+                var png_file = GLib.File.new_for_path(png_path);
+                var png_stream = png_file.replace(null, false, GLib.FileCreateFlags.NONE);
+                pixbuf.save_to_streamv(png_stream, "png", null, null);
+                png_stream.close();
+                debug("Saved as PNG: %s", png_path);
+                
+                // Secure memory clearing if enabled
+                if (SecureMemory.is_enabled(settings)) {
+                    SecureMemory.clear_pixbuf(pixbuf);
+                }
+                return true;
+            } else {
+                // Default to JPEG if format is unknown
+                debug("Unknown format, defaulting to JPEG");
+                pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
+            }
+
+            output_stream.close();
+            debug("Save completed successfully");
+
+            // Secure memory clearing if enabled
+            if (SecureMemory.is_enabled(settings)) {
+                SecureMemory.clear_pixbuf(pixbuf);
+            }
+
+            return true;
+        }
+        
+#if HAVE_GEXIV2
+        /**
+         * Save image with selective metadata removal using GExiv2
+         * Used when user wants to preserve some metadata categories
+         */
+        private static bool save_with_selective_metadata(string in_path, string out_path, string format, GLib.Settings settings) throws Error {
+            debug("Using selective metadata removal");
+            
+            // First, load the image with GdkPixbuf (to save with correct format)
+            var pixbuf = new Gdk.Pixbuf.from_file(in_path);
+            debug("Image loaded: %dx%d", pixbuf.get_width(), pixbuf.get_height());
+            
+            // Load metadata from original file
+            var metadata = new GExiv2.Metadata();
+            metadata.open_path(in_path);
+            
+            // Apply selective filter based on settings
+            int removed = MetadataFilter.apply_filter(metadata, settings);
+            debug("Removed %d metadata tags based on filter settings", removed);
+            
+            // Save the image first (without metadata)
+            var out_file = GLib.File.new_for_path(out_path);
+            var output_stream = out_file.replace(null, false, GLib.FileCreateFlags.NONE);
+            
+            // Save with appropriate format
+            if (format == "jpeg") {
+                pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
+            } else if (format == "png") {
+                pixbuf.save_to_streamv(output_stream, "png", null, null);
+            } else if (format == "webp") {
+                pixbuf.save_to_streamv(output_stream, "webp", {"quality"}, {"95"});
+            } else if (format == "tiff") {
+                // Convert to PNG for TIFF
+                warning("TIFF format not supported with portals, converting to PNG");
+                output_stream.close();
+                var png_path = out_path.replace(".tiff", ".png").replace(".tif", ".png");
+                var png_file = GLib.File.new_for_path(png_path);
+                var png_stream = png_file.replace(null, false, GLib.FileCreateFlags.NONE);
+                pixbuf.save_to_streamv(png_stream, "png", null, null);
+                png_stream.close();
+                
+                // Write filtered metadata to the PNG file
+                metadata.save_file(png_path);
+                debug("Saved PNG with selective metadata: %s", png_path);
+                
+                if (SecureMemory.is_enabled(settings)) {
+                    SecureMemory.clear_pixbuf(pixbuf);
+                }
+                return true;
+            } else {
+                pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
+            }
+            
+            output_stream.close();
+            
+            // Now write the filtered metadata back to the saved file
+            metadata.save_file(out_path);
+            debug("Saved image with selective metadata: %s", out_path);
+            
+            // Secure memory clearing if enabled
+            if (SecureMemory.is_enabled(settings)) {
+                SecureMemory.clear_pixbuf(pixbuf);
+            }
+            
+            return true;
+        }
+#endif
 
         /**
          * Ensure file path has correct extension for format

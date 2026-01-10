@@ -52,5 +52,40 @@ template $ScramblePreferences : Adw.PreferencesDialog {
         }
       }
     }
+    
+    Adw.PreferencesGroup {
+      title: _("Metadata Removal");
+      description: _("Choose which metadata categories to remove when saving");
+      
+      Adw.SwitchRow remove_gps_switch {
+        title: _("GPS / Location");
+        subtitle: _("Coordinates, city, state, and country data");
+        active: true;
+      }
+      
+      Adw.SwitchRow remove_camera_switch {
+        title: _("Camera Information");
+        subtitle: _("Make, model, lens, and serial numbers");
+        active: true;
+      }
+      
+      Adw.SwitchRow remove_datetime_switch {
+        title: _("Date / Time");
+        subtitle: _("When the photo was taken or edited");
+        active: true;
+      }
+      
+      Adw.SwitchRow remove_software_switch {
+        title: _("Software Info");
+        subtitle: _("Editing software and processing history");
+        active: true;
+      }
+      
+      Adw.SwitchRow remove_author_switch {
+        title: _("Author / Copyright");
+        subtitle: _("Creator name, contact, and licensing info");
+        active: true;
+      }
+    }
   }
 }

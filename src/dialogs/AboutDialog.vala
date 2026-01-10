@@ -7,7 +7,7 @@ namespace Scramble {
         public static void show(Gtk.Window? parent) {
             string[] developers = { "Thiago Fernandes" };
             string[] designers = { "Thiago Fernandes" };
-            string[] artists = { "Thiago Fernandes" };
+            string[] artists = { "Thiago Fernandes", "oiimrosabel" };
 
             string app_name = "Scramble";
             string comments = "A GTK4/LibAdwaita application to view and remove metadata from images";

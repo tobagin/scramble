@@ -44,6 +44,37 @@
       <description>Development-only setting to allow symbolic links for testing. Ignored in production builds for security.</description>
     </key>
 
+    <!-- Metadata Removal Settings -->
+    <key name="remove-gps" type="b">
+      <default>true</default>
+      <summary>Remove GPS/Location</summary>
+      <description>Remove GPS coordinates and location data</description>
+    </key>
+
+    <key name="remove-camera" type="b">
+      <default>true</default>
+      <summary>Remove Camera Info</summary>
+      <description>Remove camera make, model, and lens information</description>
+    </key>
+
+    <key name="remove-datetime" type="b">
+      <default>true</default>
+      <summary>Remove Date/Time</summary>
+      <description>Remove photo capture date and time</description>
+    </key>
+
+    <key name="remove-software" type="b">
+      <default>true</default>
+      <summary>Remove Software Info</summary>
+      <description>Remove software and editing history</description>
+    </key>
+
+    <key name="remove-author" type="b">
+      <default>true</default>
+      <summary>Remove Author/Copyright</summary>
+      <description>Remove author, copyright, and contact information</description>
+    </key>
+
     <!-- Version alert settings -->
     <key name="last-version-shown" type="s">
       <default>""</default>
