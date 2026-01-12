@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-01-12
+
+### 📰 Metadata & Documentation
+
+- **Branding**: Added official brand colors to metainfo for better store presence.
+- **Documentation**: Significant improvements to README and metainfo descriptions.
+- **Assets**: Added official Flathub and Ko-Fi badges.
+
 ## [1.4.0] - 2026-01-10
 
 ### ✨ New Features

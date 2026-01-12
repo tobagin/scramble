@@ -1,61 +1,47 @@
 # Scramble
 
-A privacy-focused image metadata removal tool for the Linux desktop.
+Remove metadata from your images.
+
+<div align="center">
 
 ![Scramble Application](data/screenshots/main-window.png)
 
-## 🎉 Version 1.4.0 - Selective Metadata Removal
+<a href="https://flathub.org/apps/io.github.tobagin.scramble"><img src="https://flathub.org/api/badge/io.github.tobagin.scramble" height="55" alt="Get it on Flathub"></a>
+<a href="https://ko-fi.com/tobagin"><img src="data/kofi_button.png" height="55" alt="Support me on Ko-Fi"></a>
 
-**Scramble 1.4.0** introduces selective metadata removal, giving you fine-grained control over which metadata categories to remove.
+</div>
+
+## 🎉 Version 1.4.1 - Latest Release
+
+**Scramble 1.4.1** brings metadata improvements and documentation updates.
+
+### 🆕 What's New in 1.4.1
+
+- **Metadata Improvements**: Better branding and store presence.
+- **Documentation**: Improved README and asset updates.
 
 ### 🆕 What's New in 1.4.0
 
-- **🎯 Selective Removal**: Choose which metadata to remove: GPS, Camera, DateTime, Software, or Author info.
-- **⚙️ Metadata Preferences**: New "Metadata Removal" section in Preferences with per-category toggles.
-- **🎨 New Icons**: Fresh new application icons (Thanks to @oiimrosabel).
-- **🔧 Development Icon**: Development builds now display the dedicated Devel icon.
+- **Select What to Remove**: Choose between removing GPS, Camera details, Dates, Software info, or Author data.
+- **New Preferences**: Manage removal settings in the new Preferences window.
+- **New Icons**: Fresh look with updated application icons.
 
-For detailed release notes and version history, see [CHANGELOG.md](CHANGELOG.md).
+For detailed release notes, see [CHANGELOG.md](CHANGELOG.md).
 
 ## Features
 
-### Core Features
+- **Inspect Metadata**: See exactly what information is hidden in your files (EXIF, IPTC, XMP).
+- **Clean Images**: Remove metadata to protect your privacy before sharing.
+- **Easy to Use**: Just drag and drop your images.
+- **Safe**: Your original files are never touched. Scramble always saves a new copy.
+- **Offline**: No internet connection required. Your photos stay on your computer.
 
-- **📊 Metadata Inspection**: View detailed EXIF, IPTC, and XMP metadata with organized display.
-- **🎯 Selective Removal**: Choose which metadata categories to remove or keep.
-- **📦 Batch Processing**: Process multiple images at once with progress tracking.
-- **🔍 Before/After Comparison**: Side-by-side comparison view to preview changes.
-- **📤 Metadata Export**: Export metadata to JSON or CSV for analysis.
+### Supports
 
-### User Experience
+- **Read & Clean**: JPEG, PNG, WebP
+- **Convert & Clean**: TIFF, HEIF, HEIC (converted to PNG)
 
-- **🖱️ Drag-and-Drop**: Simply drag images into the application.
-- **⌨️ Keyboard Shortcuts**: Full keyboard navigation for all actions.
-- **🎨 Modern UI**: Clean GTK4/LibAdwaita design following GNOME HIG.
-- **📝 What's New Dialog**: Automatic release notes on version updates.
-
-### Privacy & Security
-
-- **🔒 Offline Operation**: No network access, no data collection.
-- **🛡️ Sandboxed**: Runs in a secure Flatpak environment.
-- **📁 Non-Destructive**: Original files are never modified.
-- **🧹 Secure Memory**: Image data cleared from memory after processing.
-- **🔍 Format Validation**: Magic number checking prevents malicious files.
-
-### Format Support
-
-| Input (Read & Clean) | Output (Save Clean) |
-|---------------------|---------------------|
-| JPEG, PNG, WebP | JPEG, PNG, WebP |
-| TIFF, HEIF, HEIC | (converted to PNG) |
-
-## Installation
-
-### Flatpak (Recommended)
-
-[![Get it on Flathub](https://flathub.org/api/badge)](https://flathub.org/en/apps/io.github.tobagin.scramble)
-
-### From Source
+## Building from source
 
 ```bash
 # Install dependencies
