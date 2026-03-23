@@ -66,6 +66,16 @@
   </provides>
   
   <releases>
+    <release version="1.4.2" date="2026-03-23">
+      <description>
+        <p>🐛 Bug Fix Release</p>
+        <ul>
+          <li>Fixed JPEG clean copies growing larger than the original due to re-encoding at a fixed quality</li>
+          <li>Fixed saving images failing on Flatpak-based systems due to document portal FUSE path issues</li>
+          <li>Improved window layout with adaptive breakpoint for narrow screens</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.1" date="2026-01-12">
       <description>
         <p>Maintenance release with metadata improvements and documentation updates.</p>

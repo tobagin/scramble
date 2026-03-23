@@ -10,6 +10,7 @@ namespace Scramble {
 #endif
 public class Window : Adw.ApplicationWindow {
         [GtkChild] private unowned Adw.ToastOverlay toast_overlay;
+        [GtkChild] private unowned Gtk.Box main_container;
         [GtkChild] private unowned Adw.StatusPage welcome_page;
         [GtkChild] private unowned Gtk.Box image_container;
         [GtkChild] private unowned Gtk.Picture image_preview;
@@ -38,6 +39,14 @@ public class Window : Adw.ApplicationWindow {
             // Initialize metadata display
             metadata_display = new MetadataDisplay(metadata_list);
 
+            // Add adaptive breakpoint for mobile
+            var breakpoint = new Adw.Breakpoint(Adw.BreakpointCondition.parse("max-width: 600px"));
+            breakpoint.add_setter(main_container, "orientation", Gtk.Orientation.VERTICAL);
+            breakpoint.add_setter(main_container, "spacing", 24);
+            breakpoint.add_setter(main_container, "margin-start", 12);
+            breakpoint.add_setter(main_container, "margin-end", 12);
+            breakpoint.add_setter(image_preview, "height-request", 200);
+            this.add_breakpoint(breakpoint);
 
             // Header bar buttons - connect to same functions
             open_file_button_header.clicked.connect(() => on_open_file_clicked());

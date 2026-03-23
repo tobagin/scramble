@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.2] - 2026-03-23
+
+### 🐛 Fixed
+
+- **JPEG file size increase**: Clean copies of JPEG images no longer grow larger than the original. Metadata is now stripped using GExiv2 (copy + strip) instead of re-encoding at a fixed quality of 95.
+- **Saving fails on Flatpak**: Fixed a crash when saving on Flatpak-based systems (e.g. CachyOS) caused by GdkPixbuf failing to resolve the document portal FUSE path. Switched to GIO stream-based image loading for full portal compatibility.
+
+### 🔧 Changed
+
+- **Adaptive mobile layout**: The main window now responds to narrow widths (≤ 600px) by switching to a vertical layout, improving usability on smaller screens.
+- **Build script**: Switched to a shared local Flatpak repo (`~/repo`) for installs, avoiding stale per-build remotes.
+
 ## [1.4.1] - 2026-01-12
 
 ### 📰 Metadata & Documentation

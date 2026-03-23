@@ -48,71 +48,65 @@ template $ScrambleWindow : Adw.ApplicationWindow {
         }
       }
 
-      content: Gtk.Box main_container {
-        orientation: horizontal;
-        spacing: 0;
-        margin-top: 12;
-        margin-bottom: 12;
-        margin-start: 12;
-        margin-end: 12;
-        homogeneous: true;
+      content: Gtk.ScrolledWindow {
+        Adw.Clamp {
+          maximum-size: 1000;
+          tightening-threshold: 600;
 
-        Gtk.Box left_panel {
-          orientation: vertical;
-          spacing: 12;
+          child: Gtk.Box main_container {
+            orientation: horizontal;
+            spacing: 24;
+            margin-top: 24;
+            margin-bottom: 24;
+            margin-start: 24;
+            margin-end: 24;
 
-            Adw.StatusPage welcome_page {
-              title: _("Select an Image");
-              description: _("Drag and drop an image file or use the open button");
-              icon-name: "image-x-generic-symbolic";
-              vexpand: true;
-            }
-
-            Gtk.Box image_container {
+            Gtk.Box left_panel {
               orientation: vertical;
               spacing: 12;
-              visible: false;
+              hexpand: true;
+              vexpand: true;
 
-              Gtk.Picture image_preview {
-                can-shrink: true;
-                content-fit: contain;
-                halign: center;
-                valign: center;
-                width-request: 380;
-                height-request: 300;
-                margin-start: 12;
-                margin-end: 12;
+              Adw.StatusPage welcome_page {
+                title: _("Select an Image");
+                description: _("Drag and drop an image file or use the open button");
+                icon-name: "image-x-generic-symbolic";
+                vexpand: true;
               }
-            }
-          }
 
-        Gtk.ScrolledWindow right_scroll {
-          hscrollbar-policy: never;
-          vscrollbar-policy: automatic;
-          vexpand: true;
-          styles ["frame"]
+              Gtk.Box image_container {
+                orientation: vertical;
+                spacing: 12;
+                visible: false;
+                vexpand: true;
 
-          Gtk.Box right_panel {
-            orientation: vertical;
-            spacing: 12;
-            margin-top: 12;
-            margin-bottom: 12;
-            margin-start: 12;
-            margin-end: 12;
-
-
-            Adw.PreferencesGroup metadata_group {
-              title: _("Metadata");
-              description: _("Image metadata information");
-
-              Gtk.ListBox metadata_list {
-                selection-mode: none;
-
-                styles ["boxed-list"]
+                Gtk.Picture image_preview {
+                  can-shrink: true;
+                  content-fit: contain;
+                  halign: center;
+                  valign: center;
+                  width-request: 300;
+                  height-request: 300;
+                }
               }
             }
 
-          }
+            Gtk.Box right_panel {
+              orientation: vertical;
+              spacing: 12;
+              hexpand: true;
+
+              Adw.PreferencesGroup metadata_group {
+                title: _("Metadata");
+                description: _("Image metadata information");
+
+                Gtk.ListBox metadata_list {
+                  selection-mode: none;
+                  styles ["boxed-list"]
+                }
+              }
+            }
+          };
         }
       };
     };

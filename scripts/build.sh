@@ -51,9 +51,18 @@ BUILD_DIR="build"
 echo "Using manifest: $MANIFEST"
 echo "Build directory: $BUILD_DIR"
 
-# Build and install with Flatpak (always install)
-echo "Running flatpak-builder (build and install)..."
-flatpak-builder --force-clean --user --install --install-deps-from=flathub "$BUILD_DIR" "$MANIFEST"
+# Shared local Flatpak repo (reused across all local apps)
+REPO_DIR="$HOME/repo"
+REMOTE_NAME="local"
+
+echo "Running flatpak-builder..."
+flatpak-builder --force-clean --install-deps-from=flathub --repo="$REPO_DIR" "$BUILD_DIR" "$MANIFEST"
+
+echo "Installing from local repo..."
+flatpak remote-add --user --no-gpg-verify --if-not-exists "$REMOTE_NAME" "$REPO_DIR"
+# Uninstall any existing installation (may reference a stale remote)
+flatpak uninstall --user -y "$APP_ID" 2>/dev/null || true
+flatpak install --user -y "$REMOTE_NAME" "$APP_ID"
 
 echo "Build and installation complete!"
 echo "Run with: flatpak run $APP_ID"

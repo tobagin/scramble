@@ -78,8 +78,18 @@ namespace Scramble {
          * This is the fastest approach when removing all metadata
          */
         private static bool save_stripped(string in_path, string out_path, string format, GLib.Settings settings) throws Error {
-            // Load the image using GdkPixbuf to strip metadata
-            var pixbuf = new Gdk.Pixbuf.from_file(in_path);
+#if HAVE_GEXIV2
+            // For JPEG, copy the file and strip metadata with GExiv2 to avoid
+            // re-encoding at a fixed quality (which can increase file size)
+            if (format == "jpeg") {
+                return save_jpeg_strip_all(in_path, out_path, settings);
+            }
+#endif
+            // Load via stream for Flatpak portal compatibility (avoids FUSE path issues)
+            var in_file = GLib.File.new_for_path(in_path);
+            var in_stream = in_file.read();
+            var pixbuf = new Gdk.Pixbuf.from_stream(in_stream);
+            in_stream.close();
             debug("Image loaded: %dx%d", pixbuf.get_width(), pixbuf.get_height());
 
             // Save without any metadata using GFile for Flatpak portal compatibility
@@ -137,37 +147,70 @@ namespace Scramble {
         
 #if HAVE_GEXIV2
         /**
+         * Strip all metadata from a JPEG by copying the file and clearing metadata
+         * with GExiv2. This avoids re-encoding, preserving original compression quality.
+         */
+        private static bool save_jpeg_strip_all(string in_path, string out_path, GLib.Settings settings) throws Error {
+            var src = GLib.File.new_for_path(in_path);
+            var dst = GLib.File.new_for_path(out_path);
+            src.copy(dst, GLib.FileCopyFlags.OVERWRITE, null, null);
+
+            var metadata = new GExiv2.Metadata();
+            metadata.open_path(out_path);
+            metadata.clear_exif();
+            metadata.clear_xmp();
+            metadata.clear_comment();
+            metadata.save_file(out_path);
+            debug("JPEG metadata stripped without re-encoding: %s", out_path);
+            return true;
+        }
+
+        /**
          * Save image with selective metadata removal using GExiv2
          * Used when user wants to preserve some metadata categories
          */
         private static bool save_with_selective_metadata(string in_path, string out_path, string format, GLib.Settings settings) throws Error {
             debug("Using selective metadata removal");
-            
-            // First, load the image with GdkPixbuf (to save with correct format)
-            var pixbuf = new Gdk.Pixbuf.from_file(in_path);
+
+            // For JPEG, copy and patch metadata without re-encoding
+            if (format == "jpeg") {
+                var src = GLib.File.new_for_path(in_path);
+                var dst = GLib.File.new_for_path(out_path);
+                src.copy(dst, GLib.FileCopyFlags.OVERWRITE, null, null);
+
+                var metadata = new GExiv2.Metadata();
+                metadata.open_path(out_path);
+                int removed = MetadataFilter.apply_filter(metadata, settings);
+                debug("Removed %d metadata tags based on filter settings", removed);
+                metadata.save_file(out_path);
+                debug("JPEG saved with selective metadata (no re-encoding): %s", out_path);
+                return true;
+            }
+
+            // For other formats, load via stream (Flatpak portal compatibility)
+            var in_file = GLib.File.new_for_path(in_path);
+            var in_stream = in_file.read();
+            var pixbuf = new Gdk.Pixbuf.from_stream(in_stream);
+            in_stream.close();
             debug("Image loaded: %dx%d", pixbuf.get_width(), pixbuf.get_height());
-            
+
             // Load metadata from original file
-            var metadata = new GExiv2.Metadata();
-            metadata.open_path(in_path);
-            
+            var metadata2 = new GExiv2.Metadata();
+            metadata2.open_path(in_path);
+
             // Apply selective filter based on settings
-            int removed = MetadataFilter.apply_filter(metadata, settings);
-            debug("Removed %d metadata tags based on filter settings", removed);
-            
+            int removed2 = MetadataFilter.apply_filter(metadata2, settings);
+            debug("Removed %d metadata tags based on filter settings", removed2);
+
             // Save the image first (without metadata)
             var out_file = GLib.File.new_for_path(out_path);
             var output_stream = out_file.replace(null, false, GLib.FileCreateFlags.NONE);
-            
-            // Save with appropriate format
-            if (format == "jpeg") {
-                pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
-            } else if (format == "png") {
+
+            if (format == "png") {
                 pixbuf.save_to_streamv(output_stream, "png", null, null);
             } else if (format == "webp") {
                 pixbuf.save_to_streamv(output_stream, "webp", {"quality"}, {"95"});
             } else if (format == "tiff") {
-                // Convert to PNG for TIFF
                 warning("TIFF format not supported with portals, converting to PNG");
                 output_stream.close();
                 var png_path = out_path.replace(".tiff", ".png").replace(".tif", ".png");
@@ -175,30 +218,26 @@ namespace Scramble {
                 var png_stream = png_file.replace(null, false, GLib.FileCreateFlags.NONE);
                 pixbuf.save_to_streamv(png_stream, "png", null, null);
                 png_stream.close();
-                
-                // Write filtered metadata to the PNG file
-                metadata.save_file(png_path);
+                metadata2.save_file(png_path);
                 debug("Saved PNG with selective metadata: %s", png_path);
-                
                 if (SecureMemory.is_enabled(settings)) {
                     SecureMemory.clear_pixbuf(pixbuf);
                 }
                 return true;
             } else {
-                pixbuf.save_to_streamv(output_stream, "jpeg", {"quality"}, {"95"});
+                pixbuf.save_to_streamv(output_stream, "png", null, null);
             }
-            
+
             output_stream.close();
-            
-            // Now write the filtered metadata back to the saved file
-            metadata.save_file(out_path);
+
+            // Write the filtered metadata back to the saved file
+            metadata2.save_file(out_path);
             debug("Saved image with selective metadata: %s", out_path);
-            
-            // Secure memory clearing if enabled
+
             if (SecureMemory.is_enabled(settings)) {
                 SecureMemory.clear_pixbuf(pixbuf);
             }
-            
+
             return true;
         }
 #endif

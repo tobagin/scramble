@@ -11,20 +11,20 @@ Remove metadata from your images.
 
 </div>
 
-## 🎉 Version 1.4.1 - Latest Release
+## 🎉 Version 1.4.2 - Latest Release
 
-**Scramble 1.4.1** brings metadata improvements and documentation updates.
+**Scramble 1.4.2** brings important bug fixes and a responsive layout improvement.
+
+### 🆕 What's New in 1.4.2
+
+- **JPEG Size Fix**: Clean copies of JPEG images are now always smaller than or equal to the original — no more re-encoding at a fixed quality.
+- **Flatpak Save Fix**: Saving images no longer fails on Flatpak-based distros (e.g. CachyOS) due to document portal path issues.
+- **Responsive Layout**: The window now adapts to narrow widths for a better experience on smaller screens.
 
 ### 🆕 What's New in 1.4.1
 
 - **Metadata Improvements**: Better branding and store presence.
 - **Documentation**: Improved README and asset updates.
-
-### 🆕 What's New in 1.4.0
-
-- **Select What to Remove**: Choose between removing GPS, Camera details, Dates, Software info, or Author data.
-- **New Preferences**: Manage removal settings in the new Preferences window.
-- **New Icons**: Fresh look with updated application icons.
 
 For detailed release notes, see [CHANGELOG.md](CHANGELOG.md).
 
