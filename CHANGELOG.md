@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.3] - 2026-04-06
+
+### ✨ New Features
+
+- **Batch Process button**: The Batch Process action is now visible in the header bar alongside the Open button, making it discoverable without opening the menu.
+
+### 🐛 Fixed
+
+- **Ctrl+Q shortcut**: The Quit keyboard shortcut now correctly closes the application.
+
+### 📰 Metadata & Documentation
+
+- **Store description**: Flathub/AppStream description now mentions batch processing.
+
 ## [1.4.2] - 2026-03-23
 
 ### 🐛 Fixed

@@ -20,6 +20,7 @@
     <ul>
       <li>View detailed image metadata including EXIF, IPTC, and XMP</li>
       <li>Remove metadata with a single click</li>
+      <li>Batch process multiple images at once — clean an entire folder in one go</li>
       <li>Load images via drag-and-drop</li>
       <li>Keep your original files safe with a non-destructive workflow</li>
       <li>Work offline with no data collection</li>
@@ -66,6 +67,16 @@
   </provides>
   
   <releases>
+    <release version="1.4.3" date="2026-04-06">
+      <description>
+        <p>✨ Batch Processing Discoverability &amp; Keyboard Shortcut Fix</p>
+        <ul>
+          <li>Batch Process button is now visible in the header bar for easy access</li>
+          <li>Fixed Ctrl+Q keyboard shortcut not closing the application</li>
+          <li>Store description updated to mention batch processing</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.2" date="2026-03-23">
       <description>
         <p>🐛 Bug Fix Release</p>

@@ -45,6 +45,7 @@ namespace Scramble {
                 this.quit();
             });
             this.add_action(act_quit);
+            this.set_accels_for_action("app.quit", {"<Primary>q"});
         }
 
 

@@ -22,6 +22,12 @@ template $ScrambleWindow : Adw.ApplicationWindow {
           tooltip-text: _("Open Image File (Ctrl+O)");
         }
 
+        Gtk.Button batch_button_header {
+          icon-name: "media-playlist-symbolic";
+          tooltip-text: _("Batch Process Multiple Images (Ctrl+B)");
+          action-name: "win.batch-process";
+        }
+
         Gtk.Separator header_separator {
           orientation: vertical;
           visible: false;
