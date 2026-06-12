@@ -1,0 +1,186 @@
+{
+  "name": "Scramble",
+  "entry": {
+    "type": "native",
+    "linux": "build-linux-x86_64/src/scramble",
+    "windows": "build-windows-x86_64/src/scramble.exe"
+  },
+  "linux": {
+    "arches": [
+      {
+        "arch": "x86_64",
+        "build_dir": "build-linux-x86_64",
+        "entry_linux": "build-linux-x86_64/src/scramble",
+        "deb": {
+          "suite": "noble",
+          "download": true,
+          "packages": [
+            "libgtk-4-dev",
+            "gir1.2-gtk-4.0",
+            "libadwaita-1-dev",
+            "gir1.2-adw-1",
+            "libgexiv2-dev",
+            "gir1.2-gexiv2-0.10",
+            "libglib2.0-dev",
+            "libgdk-pixbuf-2.0-dev",
+            "gobject-introspection",
+            "libgirepository1.0-dev",
+            "adwaita-icon-theme",
+            "hicolor-icon-theme",
+            "librsvg2-common"
+          ]
+        },
+        "inherit_native_projects": false,
+        "native_projects": [
+          {
+            "name": "scramble",
+            "dir": ".",
+            "build": [
+              "VALAFLAGS=\"--vapidir=$SQGI_LINUX_SYSROOT/usr/share/vala/vapi --girdir=$SQGI_LINUX_SYSROOT/usr/share/gir-1.0 $VALAFLAGS\" PKG_CONFIG_SYSROOT_DIR=\"$SQGI_LINUX_SYSROOT\" PKG_CONFIG_LIBDIR=\"$SQGI_LINUX_SYSROOT/usr/lib/$SQGI_LINUX_TRIPLET/pkgconfig:$SQGI_LINUX_SYSROOT/usr/share/pkgconfig\" meson setup \"$SQGI_LINUX_BUILD_DIR\" --wipe --prefix /usr --buildtype=release ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || VALAFLAGS=\"--vapidir=$SQGI_LINUX_SYSROOT/usr/share/vala/vapi --girdir=$SQGI_LINUX_SYSROOT/usr/share/gir-1.0 $VALAFLAGS\" PKG_CONFIG_SYSROOT_DIR=\"$SQGI_LINUX_SYSROOT\" PKG_CONFIG_LIBDIR=\"$SQGI_LINUX_SYSROOT/usr/lib/$SQGI_LINUX_TRIPLET/pkgconfig:$SQGI_LINUX_SYSROOT/usr/share/pkgconfig\" meson setup \"$SQGI_LINUX_BUILD_DIR\" --prefix /usr --buildtype=release ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "meson compile -C \"$SQGI_LINUX_BUILD_DIR\""
+            ],
+            "files": [
+              "build-linux-x86_64/data/io.github.tobagin.scramble.gschema.xml=usr/share/glib-2.0/schemas/io.github.tobagin.scramble.gschema.xml",
+              "build-linux-x86_64/po/en/LC_MESSAGES/scramble.mo=usr/share/locale/en/LC_MESSAGES/scramble.mo",
+              "build-linux-x86_64/po/es/LC_MESSAGES/scramble.mo=usr/share/locale/es/LC_MESSAGES/scramble.mo",
+              "build-linux-x86_64/po/fr/LC_MESSAGES/scramble.mo=usr/share/locale/fr/LC_MESSAGES/scramble.mo",
+              "build-linux-x86_64/po/de/LC_MESSAGES/scramble.mo=usr/share/locale/de/LC_MESSAGES/scramble.mo",
+              "build-linux-x86_64/po/pt/LC_MESSAGES/scramble.mo=usr/share/locale/pt/LC_MESSAGES/scramble.mo",
+              "build-linux-x86_64/data/io.github.tobagin.scramble.desktop=usr/share/applications/io.github.tobagin.scramble.desktop",
+              "build-linux-x86_64/data/io.github.tobagin.scramble.metainfo.xml=usr/share/metainfo/io.github.tobagin.scramble.metainfo.xml",
+              "data/icons/hicolor/scalable/apps/io.github.tobagin.scramble.svg=usr/share/icons/hicolor/scalable/apps/io.github.tobagin.scramble.svg"
+            ]
+          }
+        ]
+      },
+      {
+        "arch": "aarch64",
+        "build_dir": "build-linux-aarch64",
+        "entry_linux": "build-linux-aarch64/src/scramble",
+        "deb": {
+          "suite": "noble",
+          "download": true,
+          "packages": [
+            "libgtk-4-dev",
+            "gir1.2-gtk-4.0",
+            "libadwaita-1-dev",
+            "gir1.2-adw-1",
+            "libgexiv2-dev",
+            "gir1.2-gexiv2-0.10",
+            "libglib2.0-dev",
+            "libgdk-pixbuf-2.0-dev",
+            "gobject-introspection",
+            "libgirepository1.0-dev",
+            "adwaita-icon-theme",
+            "hicolor-icon-theme",
+            "librsvg2-common"
+          ]
+        },
+        "inherit_native_projects": false,
+        "native_projects": [
+          {
+            "name": "scramble",
+            "dir": ".",
+            "build": [
+              "VALAFLAGS=\"--vapidir=$SQGI_LINUX_SYSROOT/usr/share/vala/vapi --girdir=$SQGI_LINUX_SYSROOT/usr/share/gir-1.0 $VALAFLAGS\" PKG_CONFIG_SYSROOT_DIR=\"$SQGI_LINUX_SYSROOT\" PKG_CONFIG_LIBDIR=\"$SQGI_LINUX_SYSROOT/usr/lib/$SQGI_LINUX_TRIPLET/pkgconfig:$SQGI_LINUX_SYSROOT/usr/share/pkgconfig\" meson setup \"$SQGI_LINUX_BUILD_DIR\" --wipe --prefix /usr --buildtype=release ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"} || VALAFLAGS=\"--vapidir=$SQGI_LINUX_SYSROOT/usr/share/vala/vapi --girdir=$SQGI_LINUX_SYSROOT/usr/share/gir-1.0 $VALAFLAGS\" PKG_CONFIG_SYSROOT_DIR=\"$SQGI_LINUX_SYSROOT\" PKG_CONFIG_LIBDIR=\"$SQGI_LINUX_SYSROOT/usr/lib/$SQGI_LINUX_TRIPLET/pkgconfig:$SQGI_LINUX_SYSROOT/usr/share/pkgconfig\" meson setup \"$SQGI_LINUX_BUILD_DIR\" --prefix /usr --buildtype=release ${SQGI_LINUX_MESON_CROSS_FILE:+--cross-file \"$SQGI_LINUX_MESON_CROSS_FILE\"}",
+              "meson compile -C \"$SQGI_LINUX_BUILD_DIR\""
+            ],
+            "files": [
+              "build-linux-aarch64/data/io.github.tobagin.scramble.gschema.xml=usr/share/glib-2.0/schemas/io.github.tobagin.scramble.gschema.xml",
+              "build-linux-aarch64/po/en/LC_MESSAGES/scramble.mo=usr/share/locale/en/LC_MESSAGES/scramble.mo",
+              "build-linux-aarch64/po/es/LC_MESSAGES/scramble.mo=usr/share/locale/es/LC_MESSAGES/scramble.mo",
+              "build-linux-aarch64/po/fr/LC_MESSAGES/scramble.mo=usr/share/locale/fr/LC_MESSAGES/scramble.mo",
+              "build-linux-aarch64/po/de/LC_MESSAGES/scramble.mo=usr/share/locale/de/LC_MESSAGES/scramble.mo",
+              "build-linux-aarch64/po/pt/LC_MESSAGES/scramble.mo=usr/share/locale/pt/LC_MESSAGES/scramble.mo",
+              "build-linux-aarch64/data/io.github.tobagin.scramble.desktop=usr/share/applications/io.github.tobagin.scramble.desktop",
+              "build-linux-aarch64/data/io.github.tobagin.scramble.metainfo.xml=usr/share/metainfo/io.github.tobagin.scramble.metainfo.xml",
+              "data/icons/hicolor/scalable/apps/io.github.tobagin.scramble.svg=usr/share/icons/hicolor/scalable/apps/io.github.tobagin.scramble.svg"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "windows": {
+    "msys2_prefix": "mingw64",
+    "gdk_backend": "win32",
+    "console": false,
+    "build_dir": "build-windows-x86_64",
+    "packages": [
+      "mingw-w64-x86_64-vala",
+      "mingw-w64-x86_64-gtk4",
+      "mingw-w64-x86_64-libadwaita",
+      "mingw-w64-x86_64-gdk-pixbuf2",
+      "mingw-w64-x86_64-hicolor-icon-theme",
+      "mingw-w64-x86_64-adwaita-icon-theme",
+      "mingw-w64-x86_64-adwaita-icon-theme-legacy",
+      "mingw-w64-x86_64-librsvg",
+      "mingw-w64-x86_64-libinih"
+    ],
+    "native_dependencies": [
+      {
+        "name": "exiv2",
+        "repo": "https://github.com/Exiv2/exiv2.git",
+        "dir": ".sqgipkg/native/exiv2",
+        "ref": "v0.28.8",
+        "update": true,
+        "shallow": false,
+        "build": [
+          "cmake -E rm -rf build-windows-x86_64",
+          "cmake -S . -B build-windows-x86_64 -G Ninja -DCMAKE_TOOLCHAIN_FILE=\"$SQGI_WIN_CMAKE_TOOLCHAIN\" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=\"$SQGI_WINDOWS_PREFIX\" -DEXIV2_ENABLE_NLS=ON -DEXIV2_BUILD_SAMPLES=OFF -DEXIV2_BUILD_EXIV2_COMMAND=OFF -DEXIV2_ENABLE_BMFF=ON -DCMAKE_CXX_FLAGS=-Wno-format",
+          "cmake --build build-windows-x86_64"
+        ],
+        "install": [
+          "DESTDIR=\"$SQGI_WINDOWS_SYSROOT\" cmake --install build-windows-x86_64 --prefix \"$SQGI_WINDOWS_PREFIX\""
+        ],
+        "stage": false
+      },
+      {
+        "name": "gexiv2",
+        "repo": "https://gitlab.gnome.org/GNOME/gexiv2.git",
+        "dir": ".sqgipkg/native/gexiv2",
+        "ref": "gexiv2-0.14.6",
+        "update": true,
+        "shallow": false,
+        "build": [
+          "sed -i '/^glib-compile-resources = /d;/^glib-compile-schemas = /d;/^glib-mkenums = /d;/^glib-genmarshal = /d' \"$SQGI_MESON_CROSS_FILE\" && sed -i \"/^\\[binaries\\]/a glib-compile-resources = '/usr/bin/glib-compile-resources'\\nglib-compile-schemas = '/usr/bin/glib-compile-schemas'\\nglib-mkenums = '/usr/bin/glib-mkenums'\\nglib-genmarshal = '/usr/bin/glib-genmarshal'\" \"$SQGI_MESON_CROSS_FILE\"",
+          "meson setup build-windows-x86_64 --wipe --prefix \"$SQGI_WINDOWS_PREFIX\" --buildtype=release --cross-file \"$SQGI_MESON_CROSS_FILE\" -Dpython3=false -Dintrospection=false -Dvapi=false || meson setup build-windows-x86_64 --prefix \"$SQGI_WINDOWS_PREFIX\" --buildtype=release --cross-file \"$SQGI_MESON_CROSS_FILE\" -Dpython3=false -Dintrospection=false -Dvapi=false",
+          "meson compile -C build-windows-x86_64"
+        ],
+        "install": [
+          "DESTDIR=\"$SQGI_WINDOWS_SYSROOT\" meson install -C build-windows-x86_64",
+          "install -Dm644 /usr/share/vala/vapi/gexiv2.vapi \"$SQGI_WINDOWS_PREFIX_DIR/share/vala/vapi/gexiv2.vapi\" && install -Dm644 /usr/share/vala/vapi/gexiv2.deps \"$SQGI_WINDOWS_PREFIX_DIR/share/vala/vapi/gexiv2.deps\""
+        ],
+        "stage": false
+      }
+    ],
+    "native_projects": [
+      {
+        "name": "scramble",
+        "dir": ".",
+        "build": [
+          "sed -i '/^glib-compile-resources = /d;/^glib-compile-schemas = /d;/^glib-mkenums = /d;/^glib-genmarshal = /d' \"$SQGI_MESON_CROSS_FILE\" && sed -i \"/^\\[binaries\\]/a glib-compile-resources = '/usr/bin/glib-compile-resources'\\nglib-compile-schemas = '/usr/bin/glib-compile-schemas'\\nglib-mkenums = '/usr/bin/glib-mkenums'\\nglib-genmarshal = '/usr/bin/glib-genmarshal'\" \"$SQGI_MESON_CROSS_FILE\"",
+          "VALAFLAGS=\"--vapidir=$SQGI_WINDOWS_PREFIX_DIR/share/vala/vapi --girdir=$SQGI_WINDOWS_PREFIX_DIR/share/gir-1.0 $VALAFLAGS\" meson setup \"$SQGI_WINDOWS_BUILD_DIR\" --wipe --prefix \"$SQGI_WINDOWS_PREFIX\" --buildtype=release --cross-file \"$SQGI_MESON_CROSS_FILE\" || VALAFLAGS=\"--vapidir=$SQGI_WINDOWS_PREFIX_DIR/share/vala/vapi --girdir=$SQGI_WINDOWS_PREFIX_DIR/share/gir-1.0 $VALAFLAGS\" meson setup \"$SQGI_WINDOWS_BUILD_DIR\" --prefix \"$SQGI_WINDOWS_PREFIX\" --buildtype=release --cross-file \"$SQGI_MESON_CROSS_FILE\"",
+          "meson compile -C \"$SQGI_WINDOWS_BUILD_DIR\""
+        ],
+        "files": [
+          "build-windows-x86_64/data/io.github.tobagin.scramble.gschema.xml=share/glib-2.0/schemas/io.github.tobagin.scramble.gschema.xml",
+          "build-windows-x86_64/po/en/LC_MESSAGES/scramble.mo=share/locale/en/LC_MESSAGES/scramble.mo",
+          "build-windows-x86_64/po/es/LC_MESSAGES/scramble.mo=share/locale/es/LC_MESSAGES/scramble.mo",
+          "build-windows-x86_64/po/fr/LC_MESSAGES/scramble.mo=share/locale/fr/LC_MESSAGES/scramble.mo",
+          "build-windows-x86_64/po/de/LC_MESSAGES/scramble.mo=share/locale/de/LC_MESSAGES/scramble.mo",
+          "build-windows-x86_64/po/pt/LC_MESSAGES/scramble.mo=share/locale/pt/LC_MESSAGES/scramble.mo",
+          "data/icons/hicolor/scalable/apps/io.github.tobagin.scramble.svg=share/icons/hicolor/scalable/apps/io.github.tobagin.scramble.svg"
+        ]
+      }
+    ],
+    "nsis_options": {
+      "install_dir": "$PROGRAMFILES\\Scramble",
+      "request_execution_level": "admin",
+      "desktop_shortcut": true,
+      "start_menu_shortcut": true,
+      "start_menu_folder": "Scramble",
+      "uninstall_registry": true
+    }
+  }
+}

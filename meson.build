@@ -39,7 +39,7 @@ gio_dep = dependency('gio-2.0')
 gtk_dep = dependency('gtk4')
 adw_dep = dependency('libadwaita-1')
 gdkpixbuf_dep = dependency('gdk-pixbuf-2.0')
-gexiv2_dep = dependency('gexiv2-0.16', required: true)
+gexiv2_dep = dependency('gexiv2', required: true)
 
 # Blueprint compiler
 blueprint_compiler = find_program('blueprint-compiler', required: true)

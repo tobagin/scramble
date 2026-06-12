@@ -2,6 +2,8 @@
 build/
 _build/
 .builddir/
+dist-*/
+.sqgipkg/
 meson-logs/
 meson-private/
 

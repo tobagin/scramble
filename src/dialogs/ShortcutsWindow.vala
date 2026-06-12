@@ -16,9 +16,10 @@ namespace Scramble {
 #else
                 builder.add_from_resource("/io/github/tobagin/scramble/shortcuts_window.ui");
 #endif
-                var shortcuts_dialog = builder.get_object("shortcuts_window") as Adw.ShortcutsDialog;
+                var shortcuts_dialog = builder.get_object("shortcuts_window") as Gtk.ShortcutsWindow;
                 if (shortcuts_dialog != null) {
-                    shortcuts_dialog.present(parent);
+                    shortcuts_dialog.set_transient_for(parent);
+                    shortcuts_dialog.present();
                 }
             } catch (Error e) {
                 warning("Failed to load shortcuts dialog: %s", e.message);

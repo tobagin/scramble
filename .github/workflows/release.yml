@@ -1,0 +1,126 @@
+name: Release
+
+# Builds Linux AppImages (x86_64 + aarch64) and the Windows installer with
+# sqgipkg, then publishes them as release assets for tags like `v1.0.0`.
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  APPIMAGE_EXTRACT_AND_RUN: '1'
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout Scramble
+        uses: actions/checkout@v4
+        with:
+          path: Scramble
+
+      - name: Checkout sqgi (runtime + sqgipkg)
+        uses: actions/checkout@v4
+        with:
+          repository: supercamel/sqgi
+          ref: v0.1.2-alpha
+          path: sqgi
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            build-essential cmake ninja-build pkg-config git file ca-certificates wget \
+            meson valac gettext gobject-introspection blueprint-compiler \
+            libglib2.0-dev libgirepository1.0-dev libffi-dev libcairo2-dev \
+            libgtk-4-dev libadwaita-1-dev libgdk-pixbuf-2.0-dev libgexiv2-dev \
+            gir1.2-gtk-4.0 gir1.2-adw-1 gir1.2-gexiv2-0.10 \
+            desktop-file-utils appstream libxml2-utils \
+            gcc-aarch64-linux-gnu g++-aarch64-linux-gnu qemu-user-static binfmt-support \
+            mingw-w64 nsis squashfs-tools libfuse2t64
+
+      - name: Build and install sqgi
+        run: |
+          cmake -S sqgi -B sqgi/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DSQ_ENABLE_JIT=ON
+          cmake --build sqgi/build
+          sudo cmake --install sqgi/build --prefix /usr/local
+          sudo ldconfig
+
+      - name: Build Linux x86_64 AppImage
+        working-directory: Scramble
+        run: |
+          set +e
+          "$GITHUB_WORKSPACE/sqgi/build/sqgi" "$GITHUB_WORKSPACE/sqgi/tools/sqgipkg" \
+            --target appimage --appimage-arch x86_64 --sqgi-source-dir "$GITHUB_WORKSPACE/sqgi" \
+            2>&1 | tee sqgipkg-x86_64.log
+          status=${PIPESTATUS[0]}
+          set -e
+          if [ "$status" -ne 0 ]; then
+            msg="$(tail -n 80 sqgipkg-x86_64.log | python3 -c 'import sys; print(sys.stdin.read()[-3000:].replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A"))')"
+            echo "::error title=sqgipkg x86_64 failed::$msg"
+            exit "$status"
+          fi
+
+      - name: Build Linux aarch64 AppImage
+        working-directory: Scramble
+        run: |
+          set +e
+          "$GITHUB_WORKSPACE/sqgi/build/sqgi" "$GITHUB_WORKSPACE/sqgi/tools/sqgipkg" \
+            --target appimage --appimage-arch aarch64 --sqgi-source-dir "$GITHUB_WORKSPACE/sqgi" \
+            2>&1 | tee sqgipkg-aarch64.log
+          status=${PIPESTATUS[0]}
+          set -e
+          if [ "$status" -ne 0 ]; then
+            msg="$(tail -n 80 sqgipkg-aarch64.log | python3 -c 'import sys; print(sys.stdin.read()[-3000:].replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A"))')"
+            echo "::error title=sqgipkg aarch64 failed::$msg"
+            exit "$status"
+          fi
+
+      - name: Build Windows installer
+        working-directory: Scramble
+        run: |
+          set +e
+          "$GITHUB_WORKSPACE/sqgi/build/sqgi" "$GITHUB_WORKSPACE/sqgi/tools/sqgipkg" \
+            --target win-nsis --sqgi-source-dir "$GITHUB_WORKSPACE/sqgi" \
+            2>&1 | tee sqgipkg-windows.log
+          status=${PIPESTATUS[0]}
+          set -e
+          if [ "$status" -ne 0 ]; then
+            msg="$(tail -n 80 sqgipkg-windows.log | python3 -c 'import sys; print(sys.stdin.read()[-3000:].replace("%", "%25").replace("\r", "%0D").replace("\n", "%0A"))')"
+            echo "::error title=sqgipkg Windows failed::$msg"
+            exit "$status"
+          fi
+
+      - name: Collect artifacts
+        working-directory: Scramble
+        run: |
+          mkdir -p artifacts
+          cp dist-linux-x86_64/Scramble.AppImage artifacts/Scramble-x86_64.AppImage
+          cp dist-linux-aarch64/Scramble.AppImage artifacts/Scramble-aarch64.AppImage
+          cp dist-windows-x86_64/Scramble-Setup.exe artifacts/Scramble-Setup.exe
+          ls -lh artifacts
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: scramble-builds
+          path: Scramble/artifacts/*
+
+      - name: Publish release assets
+        if: startsWith(github.ref, 'refs/tags/')
+        working-directory: Scramble
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" artifacts/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$GITHUB_REF_NAME" \
+            --generate-notes \
+          || gh release upload "$GITHUB_REF_NAME" artifacts/* \
+            --repo "$GITHUB_REPOSITORY" --clobber
