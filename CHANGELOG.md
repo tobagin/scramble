@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.5] - 2026-10-01
+
+### 🔧 Changed
+
+- **GNOME 51 runtime**: The Flatpak now builds against `org.gnome.Platform` 51.
+- **Updated bundled dependencies**: exiv2 0.28.8 → 0.28.9, gexiv2 0.16.0 → 0.16.2, libheif 1.23.0 → 1.23.5 and libde265 1.1.1 → 1.1.3.
+
 ## [1.4.4] - 2026-06-03
 
 ### 🔧 Changed

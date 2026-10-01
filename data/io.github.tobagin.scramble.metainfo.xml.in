@@ -67,6 +67,15 @@
   </provides>
   
   <releases>
+    <release version="1.4.5" date="2026-10-01">
+      <description>
+        <p>🔧 Maintenance Release</p>
+        <ul>
+          <li>Updated to the GNOME 51 runtime</li>
+          <li>Updated bundled exiv2 to 0.28.9, gexiv2 to 0.16.2, libheif to 1.23.5 and libde265 to 1.1.3</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.4" date="2026-06-03">
       <description>
         <p>🔧 Maintenance Release</p>

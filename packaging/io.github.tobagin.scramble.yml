@@ -1,6 +1,6 @@
 app-id: io.github.tobagin.scramble
 runtime: org.gnome.Platform
-runtime-version: '50'
+runtime-version: '51'
 sdk: org.gnome.Sdk
 command: scramble
 finish-args:
@@ -42,8 +42,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/Exiv2/exiv2.git
-        tag: v0.28.8
-        commit: 829dd7181ecc86716b393495dbb3eec67ac5604d
+        tag: v0.28.9
+        commit: 110cbaef8e75f0e064e5c522846a18982bc4db70
 
   - name: libde265
     buildsystem: cmake-ninja
@@ -57,8 +57,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/strukturag/libde265.git
-        tag: v1.1.1
-        commit: 4dd701fffac01632ffd5cabc5ef10deb56accba1
+        tag: v1.1.3
+        commit: ba62bf4cfb3242f3bf0a45617ff09e35236e4d82
 
   - name: libheif
     buildsystem: cmake-ninja
@@ -78,8 +78,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/strukturag/libheif.git
-        tag: v1.23.0
-        commit: bd114ed6d592adc92a09882172ab71d1b4c6e1b1
+        tag: v1.23.5
+        commit: 413e2a87e6a70b3eccc3a3adc5801179dd2d9e00
 
   - name: gexiv2
     buildsystem: meson
@@ -89,8 +89,8 @@ modules:
     sources:
       - type: git
         url: https://gitlab.gnome.org/GNOME/gexiv2.git
-        tag: "0.16.0"
-        commit: 33ac4052bb4132e16fdf2bf043cbddca9c716be6
+        tag: "0.16.2"
+        commit: 140caa641ffdf4df415c41fa43541d34f1e6c46a
 
   - name: scramble
     buildsystem: meson
