@@ -67,6 +67,15 @@
   </provides>
   
   <releases>
+    <release version="1.4.6" date="2026-11-27">
+      <description>
+        <p>🔧 Maintenance Release</p>
+        <ul>
+          <li>Updated bundled inih to r63 and libheif to 1.23.7 for the Flatpak build</li>
+          <li>Disabled unused libheif unit tests and CLI examples during Flatpak builds</li>
+        </ul>
+      </description>
+    </release>
     <release version="1.4.5" date="2026-10-01">
       <description>
         <p>🔧 Maintenance Release</p>

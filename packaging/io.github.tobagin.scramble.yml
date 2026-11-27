@@ -27,8 +27,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/benhoyt/inih.git
-        tag: r62
-        commit: 26254ee9de7681f8825433415443e7116ff24b98
+        tag: r63
+        commit: 611ab51f8dd7ec583543815b0de693495045fbf8
 
   - name: exiv2
     buildsystem: cmake-ninja
@@ -72,14 +72,16 @@ modules:
       - -DWITH_JPEG_DECODER=ON
       - -DWITH_JPEG_ENCODER=OFF
       - -DENABLE_PLUGIN_LOADING=OFF
+      - -DBUILD_TESTING=OFF
+      - -DWITH_EXAMPLES=OFF
     cleanup:
       - /bin
       - /share/thumbnailers
     sources:
       - type: git
         url: https://github.com/strukturag/libheif.git
-        tag: v1.23.5
-        commit: 413e2a87e6a70b3eccc3a3adc5801179dd2d9e00
+        tag: v1.23.7
+        commit: 12a259a5882dd99d45ec5fc77e296a3b620d1e2e
 
   - name: gexiv2
     buildsystem: meson

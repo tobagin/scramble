@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.6] - 2026-11-27
+
+### 🔧 Changed
+
+- **Updated bundled dependencies**: inih r62 → r63 and libheif 1.23.5 → 1.23.7 for the Flatpak build.
+- **Flatpak build**: Disabled unused `libheif` unit tests and CLI examples during Flatpak builds.
+
 ## [1.4.5] - 2026-10-01
 
 ### 🔧 Changed
